@@ -1,758 +1,277 @@
-<style>
-  @import compass
+<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic|Open+Sans:300,400,500,700|Waiting+for+the+Sunrise|Shadows+Into+Light' rel='stylesheet' type='text/css'>
 
-// clearfix
-.clearfix
-  display: inline-block
-  &:after
-    visibility: hidden
-    display: block
-    font-size: 0
-    content: " "
-    clear: both
-    height: 0
-* html .clearfix
-  height: 1%
-.clearfix
-  display: block
+<div class="wrapper clearfix">
+  <div class="left">
 
-$resumeBg: #fff
+    <div class="name-hero">
 
-$myBlue: #0198E1
-$myGreen: #608341
-$myOrange: #FF6103
-$myPink: #B5509C
-$myGray: #444
-$myBrown: #8B4513
+      <div class="me-img"></div>
 
-$gradStart: #222
-$gradEnd: #444
+      <div class="name-text">
+
+        <h1>Anthony <em>Adamski</em></h1>
+        <p>10 Iroquois St Boston, MA 02120</p>
+        <p>adamskianthony@gmail.com</p>
+        <p>(956) 500-5558</p>
+
+      </div>
+
+    </div>
+
+  </div>
+  <div class="right">
+
+    <div class="inner">
+      <section>
+        <h1>Employment</h1>
+        <p>Winter 2015 - Present <em>Grand Interactive, llc. | Mobile App Developer</em></p>
+        <p>Raised $78,000 in early stage funding, created initial design
+          concepts, and oversaw initial development. Currently oversee and maintain all front end code and server functionality.</p>
+        <p>Spring 2012 - Winter 2015 | <em>PadMatcher Inc. | CTO, Co-Founder</em></p>
+        <p>Raised $78,000 in early stage funding, created initial design
+          concepts, and oversaw initial development. Oversaw and maintained all front end code and server functionality.</p>
+        <p>Fall 2011 - Fall 2013 | <em>Penrose Realty llc. | Desinger & Assistant</em></p>
+        <p>Responsible for all technical areas. Maintain servers, computers, and provide in office technical support. Rebranded company from ground up including a fully responsive website. </p>
+      </section>
+      <section>
+        <h1>Technical Skills</h1>
+        <ul class="skill-set">
+          <li>Mobile Development</li>
+          <li>Xamarin</li>
+          <li>CSS3</li>
+          <li>Adobe Photoshop</li>
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>JQUERY</li>
+          <li>UI Design</li>
+          <li>Company Branding</li>
+          <li>Responsive Web Design</li>
+        </ul>
+      </section>
+      <section>
+        <h1>References</h1>
+        <p>William Grand | <em>Grand Interactive, llc. | CEO</em></p>
+        <p>(617) 448-0910 | wgrand@grandinteractive.com</p>
+        <p>Eric Chauvin | <em>PadMatcher Inc. | CEO</em></p>
+        <p>(617) 448-0910 | eric@padmatcher.com</p>
+        <p>Chris Heller <em>Penrose Realty LLC. | Broker</em></p>
+        <p>(617) 794-4554 | chris@penroserealty.com</p>
+      </section>
+      <section>
+        <h1>Personal Interests</h1>
+        <ul class="skill-set">
+          <li>Faith</li>
+          <li>Biblical Studies</li>
+          <li>Playing Guitar</li>
+          <li>Song Writing</li>
+          <li>Health & Nutrition</li>
+          <li>Reading</li>
+        </ul>
+      </section>
+      <section>
+        <div class="handmade">
+          <p>handmade by <em> Anthony Adamski</em></p>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+</div>
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+
+html
+{
+	font-size:100%;
+}
 
 body
-  padding: 30px 20px 20px 20px
-  font-family: 'Montserrat', sans-serif
-  background-image: -webkit-gradient(linear,left top,right bottom,color-stop(0, $gradStart),color-stop(0.61, #EDEDED))
-  background-image: -o-linear-gradient(right bottom, $gradStart 0%, $gradEnd 61%)
-  background-image: -moz-linear-gradient(right bottom, $gradStart 0%, $gradEnd 61%)
-  background-image: -webkit-linear-gradient(right bottom, $gradStart 0%, $gradEnd 61%)
-  background-image: -ms-linear-gradient(right bottom, $gradStart 0%, $gradEnd 61%)
-  background-image: linear-gradient(to right bottom, $gradStart 0%, $gradEnd 61%)
-a
-  text-decoration: none
-  color: $myBlue
-.divider
-  width: 100%
-  float: left
-  &:after
-    position: absolute
-    width: 100%
-    margin-top: 0px
-    bottom: -11px
-    left: -3px
-    background: darken($resumeBg, 65%)
-    content: ""
-    display: block
-    +transform(skew(-31deg,0deg))
-    height: 11px
-.contOut
-  opacity: 0
-  width: 100%
-  max-width: 1080px
-  margin: 0 auto
-  background: $resumeBg
-  position: relative
-  overflow: visible
-  margin-bottom: 6px
-  &:before
-    position: absolute
-    width: 6px
-    margin-top: 6px
-    left: -6px
-    background: darken($resumeBg, 45%)
-    content: ""
-    display: block
-    +transform(skew(0deg,-61deg))
-    height: 100%
-  .contIn
-    width: 100%
-    float: left
-    .section
-      padding-left: 30px
-      padding-right: 30px
-      &.top
-        padding-top: 30px
-        padding-bottom: 15px
-        &:hover img
-          +filter(grayscale(0%))
-    .logoCont
-      float: left
-      width: 15%
-      .logo
-        width: 100%
-        max-width: 100px
-        min-width: 50px
-        height: auto
-        min-height: 50px
-        +filter(grayscale(100%))
-        +border-radius(2px)
-        border: solid 1px darken($resumeBg, 20%)
-    h1
-      width: 45%
-      float: left
-      display: inline-block
-      font-family: 'Playfair Display', serif
-      margin: -6px 0 0 0
-      font-size: 40px
-      line-height: 40px
-    p.tagline
-      float: left
-      width: 45%
-      font-size: 14px
-      span
-        color: darken($resumeBg, 40%)
-    .moreInfo
-      float: right
-      width: 40%
-      text-align: right
-      p
-        margin: 0
-        line-height: 20px
-        word-wrap: break-word
-.middle
-  padding-top: 20px
-  padding-bottom: 20px
-  h2
-    border-left: solid 0 $resumeBg
-    +transition(all 200ms ease-in)
-    i.fa
-      display: inline-block
-      margin-left: 10px
-      &:hover
-        cursor: pointer
-        color: darken($myBlue, 10%)
-  &:hover h2
-    border-left: solid 10px invert($resumeBg)
-    padding-left: 8px
-    +transition(all 100ms ease-in)
-  .job
-    width: 100%
-    float: left
-    h2
-      margin: 0
-      span
-        float: right
-        display: inline-block
-        font-size: 16px
-        background: invert($resumeBg)
-        color: $resumeBg
-        padding: 6px 8px
-        min-width: 120px
-        text-align: center
-    p
-      margin: 6px 0
-      .brag
-        display: inline-block
-        margin: 10px 0
-        font-style: italic
-        background: darken($resumeBg, 14%)
-        padding: 20px 20px 20px 50px
-        color: #333
-        text-align: justify
-        border-bottom: solid 1px darken($resumeBg, 25%)
-        position: relative
-        text-shadow: 0 1px 1px $resumeBg
-        max-height: 40px
-        &:before
-          position: absolute
-          left: 0
-          top: 0
-          content: ""
-          width: 0
-          height: 0
-          border-top: 40px solid transparent
-          border-bottom: 40px solid transparent
-          border-left: 40px solid $resumeBg
-.skills
-  width: 49%
-  display: block
-  float: left
-  padding-bottom: 20px
-  h3
-    margin: 20px 20px 10px 20px
-    text-transform: uppercase
-    position: relative
-    .fa
-      position: absolute
-      top: -4px
-      right: 0
-      padding: 4px
-      +border-radius(3px)
-  ul
-    font-size: 14px
-    list-style: none
-    margin: 0
-    padding: 0 20px
-    li
-      float: left // disable for list view
-      padding: 4px 6px
-      margin: 0 4px 4px 0
-      &.light
-        opacity: 0.6
-  &.odd
-    margin-right: 2%
-  &.code
-    background: $myBlue
-    .fa
-      background: lighten($myBlue, 15%)
-      +box-shadow(inset 0 1px 2px darken($myBlue, 30%))
-    li
-      background: darken($myBlue, 12%)
-      text-shadow: 0 1px 1px $myBlue
-      &:hover
-        background: darken($myBlue, 6%)
-      &.prim
-        text-shadow: none
-        background: darken($myBlue, 25%)
-        color: $resumeBg
-        clear: left
-  &.software
-    background: $myGreen
-    .fa
-      background: lighten($myGreen, 15%)
-      +box-shadow(inset 0 1px 2px darken($myGreen, 30%))
-    li
-      background: darken($myGreen, 12%)
-      text-shadow: 0 1px 1px $myGreen
-      &:hover
-        background: darken($myGreen, 6%)
-      &.prim
-        text-shadow: none
-        background: darken($myGreen, 25%)
-        color: #fff
-        clear: left
-ul.buttons
-  margin: 0
-  padding: 0
-  list-style: none
-  li
-    float: left
-    text-align: center
-    display: inline-block
-    width: 32%
-    margin-right: 1%
-    +border-radius(2px)
-    position: relative
-    margin-bottom: 8px
-    a
-      display: inline-block
-      padding: 10px 0
-      color: $resumeBg
-    &:last-child
-      margin-right: 0
-      background: $myBrown
-      border-bottom: solid 3px darken($myBrown, 20%)
-      +transition(all 100ms ease-in-out)
-      width: 33%
-      &:hover
-        background: lighten($myBrown, 10%)
-        border-bottom: solid 3px darken($myBrown, 5%)
-        +transition(all 200ms ease-in-out)
-    &:nth-child(1)
-      background: $myPink
-      border-bottom: solid 3px darken($myPink, 20%)
-      +transition(all 100ms ease-in-out)
-      &:hover
-        background: lighten($myPink, 10%)
-        border-bottom: solid 3px darken($myPink, 5%)
-        +transition(all 200ms ease-in-out)
-    &:nth-child(2)
-      background: $myGreen
-      border-bottom: solid 3px darken($myGreen, 20%)
-      +transition(all 100ms ease-in-out)
-      &:hover
-        background: lighten($myGreen, 10%)
-        border-bottom: solid 3px darken($myGreen, 5%)
-        +transition(all 200ms ease-in-out)
-    &:nth-child(3)
-      background: $myBlue
-      border-bottom: solid 3px darken($myBlue, 20%)
-      +transition(all 100ms ease-in-out)
-      margin-right: 0
-      width: 33%
-      &:hover
-        background: lighten($myBlue, 10%)
-        border-bottom: solid 3px darken($myBlue, 5%)
-        +transition(all 200ms ease-in-out)
-    &:nth-child(4)
-      background: $myOrange
-      border-bottom: solid 3px darken($myOrange, 20%)
-      +transition(all 100ms ease-in-out)
-      &:hover
-        background: lighten($myOrange, 10%)
-        border-bottom: solid 3px darken($myOrange, 5%)
-        +transition(all 200ms ease-in-out)
-    &:nth-child(5)
-      background: $myGray
-      border-bottom: solid 3px darken($myGray, 20%)
-      +transition(all 100ms ease-in-out)
-      &:hover
-        background: lighten($myGray, 10%)
-        border-bottom: solid 3px darken($myGray, 5%)
-        +transition(all 200ms ease-in-out)
-          
-@media(max-width: 1010px)
-  .contOut .contIn h1, .contOut .contIn p.tagline
-    width: 42%
-    margin-left: 3%
-  .skills.code, .skills.software
-    width: 100%
-  .skills.code
-    margin-bottom: 10px
-  ul.buttons li
-    width: 48%
-    margin-bottom: 10px
-    &:nth-child(3), &:last-child
-      width: 48%
-  ul.buttons li:nth-child(even)
-    float: right
-    margin-right: 0
+{
+	-webkit-font-smoothing:antialiased;
+	color:#333332;
+	font-family:Lora, serif;
+	font-size:18px;
+	font-weight:400;
+	line-height:1.4;
+	text-rendering:optimizeLegibility;
+}
 
-@media(max-width: 850px)
-  .middle .job p .brag
-    padding-left: 70px
-    max-height: 60px
-    &:before
-      border-top: 50px solid transparent
-      border-bottom: 50px solid transparent
-      border-left: 50px solid $resumeBg
-  .contOut .contIn
-    .logoCont
-      width: 35%
-      .logo
-        max-width: 200px
-    h1
-      width: 62%
-      float: right
-      text-align: right
-      margin-bottom: 10px
-    .moreInfo
-      width: 60%
-    p.tagline
-      clear: left
-      width: 30%
-      margin: 0
-.contracts
-  width: 100%
-  +box-sizing(border-box)
-  padding: 20px 30px
-  h3
-    margin: 0 0 20px 0
-  .contract
-    +box-sizing(border-box)
-    padding: 10px
-    width: 24%
-    min-height: 160px
-    background: #ffc
-    border: solid 1px darken(#ffc, 10%)
-    +box-shadow(0 1px 2px #999)
-    color: darken(#ffc, 80%)
-    float: left
-    margin-right: 1%
-    margin-bottom: 10px
-    position: relative
-    padding-bottom: 15px
-    h4
-      margin: 0
-    p.desc
-      font-size: 14px
-      color: darken(#ffc, 75%)
-      word-wrap: break-word
-      a:hover
-        text-decoration: underline
-    span.date
-      position: absolute
-      bottom: 5px
-      right: 5px
-      font-size: 12px
-      color: darken(#ffc, 60%)
+.skill-set li:hover
+{
+	background:#3498db;
+}
 
-@media(max-width: 800px)
-  .contracts .contract
-    width: 49%
-@media(max-width: 620px)
-  .middle .job p .brag
-    padding-left: 80px
-    max-height: 80px
-    &:before
-      border-top: 60px solid transparent
-      border-bottom: 60px solid transparent
-      border-left: 60px solid $resumeBg
-    
-@media(max-width: 570px)
-  .middle .job p .brag
-    padding-left: 90px
-    max-height: 100px
-    &:before
-      border-top: 70px solid transparent
-      border-bottom: 70px solid transparent
-      border-left: 70px solid $resumeBg
-  ul.buttons li
-    width: 100%
-    margin-right: 0
-    &:nth-child(3), &:last-child
-      width: 100%
-  .skills ul li
-    float: none
-  .contOut .contIn
-    h1
-      font-size: 34px
-  .contracts .contract
-    width: 100%
-    margin-right: 0
-      
-@media(max-width: 500px)
-  .middle .job p .brag
-    padding-left: 20px
-    max-height: none
-    &:before
-      border-top: none
-      border-bottom: none
-      border-left: none
-  .middle .job h2 span
-    margin-top: 10px
-  .contOut .contIn
-    h1
-      font-size: 28px
-    .moreInfo
-      font-size: 14px
-      
-@media(max-width: 450px)
-  .contOut .contIn
-    .moreInfo, p.tagline
-      font-size: 12px
+h1
+{
+	color:rgba(0,0,0,.75);
+}
 
-.sm
-  list-style: none
-  position: absolute
-  top: 10px
-  right: 30px
-  margin: 0
-  li
-    display: inline-block
-    float: left
-    margin-left: 6px
-    a
-      //text-shadow: 0 1px 1px #fff
-      color: #ccc
-      &:hover
-        color: #fff
-    
-</style>
-.contOut.clearfix
-  .contIn
-    .section.top.clearfix
-      .logoCont
-        img.logo(src='http://gravatar.com/avatar/51efa933e7e70c09b613ff806e36cd85?s=512')
-      h1 Jeremy Hawes
-      .moreInfo
-        p
-          | 1060 Arcade Boulevard
-          br
-          | Sacramento, CA 95815
-          br
-          | hawes.jeremy@gmail.com
-          br
-          | (916) 216.7788
-          br
-          a(href='http://onelittledesigner.com', target='_blank') RapidWeaver Themes &amp; Stacks
-      p.tagline
-        | Front-end Developer
-        br
-        | Project Manager
-        br
-        span Web &amp; Software
-    .divider
-.contOut.clearfix
-  .contIn
-    .section.middle.clearfix
-      .job
-        h2
-          | Capitol Tech Solutions
-          i.fa.fa-minus.openBtn.open
-          span Sept 2015 - present 
-        p
-          strong Position: 
-          | Project Manager
-          br
-          strong Description: 
-          | I manage the entire process of website design and development for projects varying in scope.
-          br
-          span.brag
-            | I manage a team consisting of 12 employees and 6-10 highly skilled contractors. We develop website's for our own internal CMS including Shopify and WordPress.
-    .divider
-.contOut.clearfix
-  .contIn
-    .section.middle.clearfix
-      .job
-        h2
-          | One Little Designer (1LD)
-          i.fa.fa-plus.openBtn
-          span 2010 - present 
-        p
-          strong Position: 
-          | Project Manager & Front-end Developer
-          br
-          strong Description: 
-          | Website & Software development, design, UI and project management
-          br
-          span.brag
-            | I am one of the top developers in the RapidWeaver market where I have over 70 top selling addons and my latest work is featured as a built-in theme in their latest version (6).
-    .divider
-.contOut.clearfix
-  .contIn
-    .section.middle.clearfix
-      .job
-        h2
-          | Shoulder to Shoulder
-          i.fa.fa-plus.openBtn
-          span 2007 - 2010 
-        p
-          strong Position: 
-          | System Administrator
-          br
-          strong Description: 
-          | Maintain internal database, administration, project management, team building
-          br
-          span.brag
-            | During college I was a full-time volunteer here where our aim was to help "Prepare urban fatherless young men for life" and I helped in building the company from the ground up.
-    .divider
-.contOut.clearfix
-  .contIn
-    .section.middle.clearfix
-      .job
-        h2
-          | United States Army
-          i.fa.fa-plus.openBtn
-          span 2000 - 2006 
-        p
-          strong Position: 
-          | Administration
-          br
-          strong Description: 
-          | Logistical database modeling for transportation battalion's convoy movements
-          br
-          span.brag
-            | Developed a tracking database for logistical transportation convoy movements - used for creating accurate predictive re-deployment supply dates.
-    .divider
-.contOut.clearfix.half
-  .contIn
-    .section.middle.clearfix
-      .skills.code.odd
-        h3
-          | Code & Software
-          i.fa.fa-code
-        ul
-          li.prim JavaScript
-          li jQuery
-          li jQuery UI
-          li Angular
-          li AJAX
-          li.prim CSS
-          li CSS3
-          li Sass
-          li Scss
-          li Compass
-          li.light Bourbon
-          li.prim HTML
-          li HMTL5
-          li xhtml
-          li Jade
-          li.light Haml
-          li.light SVG
-          li.prim Database
-          li.light Ruby
-          li Ruby on Rails
-          li ASP
-          li PHP
-          li.light PostgreSQL
-          li.light MySQL
-          li.prim Platforms
-          li RapidWeaver
-          li Wix
-          li WordPress
-          li Ghost
-          li.light Tumblr
-          li.light Joomla
-          li.prim API
-          li Google Maps
-          li Google Places
-          li Facebook
-          li Pinterest
-          li Instagram
-          li.light PayPal
-          li.prim Frameworks
-          li Bootstrap
-          li Foundation
-          li Pure
-          li.prim Editors
-          li Aptana
-          li Brackets
-          li Sublime Text
-          li Codepen
-          li jsFiddle
-          li Plist Editor Pro
-          li.prim Environments
-          li Git
-          li BitBucket
-          li GitHub
-          li WAMP/MAMP
-          li.prim Graphics
-          li Photoshop
-          li Illustrator
-          li.light After Effects
-      .skills.software
-        h3
-          | Practices & Tools
-          i.fa.fa-laptop
-        ul
-          li.prim Markup
-          li Semantic/intuitive
-          li Unintrusive
-          li Uniform Indention
-          li Sparingly Complex
-          li Browser Compliance
-          li Validated
-          li SEO Compliant
-          li.prim Design
-          li Responsive
-          li Single Page Apps
-          li MVC Frameworks
-          li UI & UX
-          li Branding
-          li A/B Testing
-          li Pixel Perfect
-          li Cross-browser
-          li Touch Friendly
-          li Retina Ready
-          li Fast
-          li.prim Dev Approach
-          li Plan
-          li Modular Builds
-          li Version Control
-          li Test
-          li Debug
-          li.prim Troubleshooting
-          li StackOverflow
-          li Chrome Dev Tools
-          li.prim Project Management
-          li Asana
-          li Jira
-          li Hipchat
-          li Basecamp
-          li Slack
-          li.prim Site Optimization
-          li Google Analytics
-          li Webmaster/Console Tools
-          li Website Insight
-          li PageSpeed
-    .divider
-.contOut.clearfix
-  .contIn
-    .contracts.clearfix
-      h3 Contract Employers
-      .contract
-        h4 Internet Marketing Bar
-        p.desc
-          | User Interface (UI) design, custom WP Admin design, custom WP theme design, Dashboard & 
-          a(href="https://codepen.io/jhawes/pen/gbPrbZ", target="_blank") Email Mktg dashboard 
-          | design.
-        span.date 2014
-      .contract
-        h4 Iron Post Media
-        p.desc
-          | Custom WP theme changes & custom 
-          a(href="https://codepen.io/jhawes/pen/ujdgK", target="_blank") Google Maps polygon coordinate tool 
-          |used for real estate 
-          a(href="https://codepen.io/jhawes/pen/wBACp", target="_blank") drill-down navigation 
-          | design.
-        span.date 2014
-      .contract
-        h4 California Crane School
-        p.desc
-          | Various custom PHP & WP projects: 
-          a(href="http://californiacraneschool.com", target="_blank") CaliforniaCraneSchool.com
-          |, 
-          a(href="http://craneaccidents.com", target="_blank") CraneAccidents.com
-          |, 
-          a(href="http://cranehunter.com", target="_blank") CraneHunter.org
-          |, and more to come.
-        span.date 2011 - 2014
-      .contract
-        h4 SMUD
-        p.desc 
-          | Additions & changes to various DOM elements & stylesheets within company portal.
-          span.date 2010
-    
-.contOut.clearfix.half
-  .contIn
-    .section.middle.clearfix
-      ul.buttons
-        li
-          a(href='http://onelittledesigner.com', target='_blank') 1LittleDesigner.com
-        li
-          a(href='http://rapidweaverebook.com', target='_blank') RapidWeaverEbook.com
-        li
-          a(href='http://pure4rw.com', target='_blank') Pure4RW.com
-        li
-          a(href='http://hashtaghawes.com', target='_blank') HashtagHawes.com
-        li
-          a(href='http://papertemple.net', target='_blank') PaperTemple.net
-        li
-          a(href='http://coffeetablestudios.com', target='_blank') CoffeeTableStudios.com
-    .divider
-ul.sm
-  li
-    a(href='https://codepen.io/jhawes/')
-      i.fa.fa-codepen
-  li
-    a(href='https://twitter.com/jeremyhawes')
-      i.fa.fa-twitter
-  li
-    a(href='https://www.facebook.com/1LittleDesigner')
-      i.fa.fa-facebook
-  li
-    a(href='https://plus.google.com/+JeremyHawes/posts')
-      i.fa.fa-google-plus
-  li
-    a(href='https://www.flickr.com/photos/artbyhawes/')
-      i.fa.fa-flickr
-  li
-    a(href='http://instagram.com/haweshead/')
-      i.fa.fa-instagram
-  li
-    a(href='https://www.linkedin.com/in/jeremyhawes')
-      i.fa.fa-linkedin
-<script>
-  $(window).load(function(){
-  // Page Load Anim
-  $('.contOut').animate({
-    'opacity':'1'
-  },1200);
-  // Jobs Accordion
-  $('.fa-plus').closest('.job').find('p').slideUp();
-  $('.openBtn').on('click', function() {
-    if ($(this).hasClass('open')) {
-      $(this).removeClass('open').removeClass('fa-minus').addClass('fa-plus');
-      $(this).closest('.job').find('p').animate({
-        'opacity':'0'
-      },200).slideUp();
-    } else {
-      $(this).addClass('open').removeClass('fa-plus').addClass('fa-minus');
-      $(this).closest('.job').find('p').slideDown().animate({
-        'opacity':'1'
-      },400);
-    }
-  });
+.wrapper
+{
+	height:100%;
+}
+
+.left
+{
+	background-color:rgba(0,0,0,.025);
+	border-right:1px solid rgba(0,0,0,.05);
+	float:right;
+	height:100%;
+	margin-left:-1px;
+	min-width:256px;
+	position:fixed;
+	width:33.33%;
   
-});
-</script>
+}
+
+.right
+{
+	float:right;
+	height:100%;
+	position:relative;
+	width:66.66%;
+}
+
+
+.name-hero
+{
+	background:rgba(0,0,0,.001);
+	bottom:0;
+	height:290px;
+	left:0;
+	margin:auto;
+	position:absolute;
+	right:0;
+	top:0;
+	width:85%;
+}
+
+.me-img
+{
+	background:url(https://media-exp1.licdn.com/dms/image/C4E03AQGnLq_IB_mf8Q/profile-displayphoto-shrink_400_400/0/1631022739752?e=1648684800&v=beta&t=eICUjHeH_g9GQEItmEMK1j2gCADwqfjrlccSD_5za58) no-repeat center center ;
+	background-size:100%;
+  background-position:0px;
+	border-radius:100%;
+	height:150px;
+	margin:0 auto;
+	position:relative;
+	width:150px;
+}
+
+.name-hero h1
+{
+	font-family:Open Sans, sans-serif;
+	font-size:1.5em;
+	text-align:center;
+}
+
+.name-hero h1 em
+{
+	color:rgba(0,0,0,.3);
+	font-style:normal;
+	font-weight:700;
+}
+
+.name-hero p
+{
+	color:rgba(0,0,0,.75);
+	font-size:.75em;
+	line-height:1.5;
+	margin:0 8px 0 0;
+	text-align:center;
+}
+
+.name-hero .name-text
+{
+	margin:0 auto;
+	width:85%;
+}
+
+.inner
+{
+	margin:0 auto;
+	max-width:975px;
+	padding:3em;
+}
+
+.inner h1
+{
+	font-size:1.75em;
+}
+
+.inner p
+{
+	color:rgba(0,0,0,.5);
+}
+
+.inner p em
+{
+	color:rgba(0,0,0,1);
+	font-style:normal;
+}
+
+.inner section
+{
+	margin:100px auto;
+}
+
+ul
+{
+	list-style-type:none;
+	margin-top:-10px;
+	max-width:570px;
+	padding:0;
+}
+
+.skill-set li
+{
+	background:rgba(0,0,0,.75);
+	border-radius:5px;
+	color:#FFF;
+	display:inline-block;
+	list-style:none;
+	margin:15px 15px 0 0;
+	padding:10px;
+	text-align:justify;
+}
+
+@media screen and (max-width: 48em) {
+	.right,.left
+	{
+		float:none;
+    position:relative !important;
+		width:100%;
+    min-height:500px;
+	}
+  .handmade {
+  text-align:center !important;
+  margin-top:0px !important;
+}
+
+@media screen and (max-width: 75em) {
+    body
+{ font-size:16px;}
+}
+
+@media screen and (max-width: 60em) {
+    body
+{ font-size:14px;}
+}
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+.handmade {
+  text-align:right;
+  margin-top:100px;
+}
+.handmade em {
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 1.25em;
+  margin-left:5px;
+}
