@@ -2,6 +2,118 @@ Projet: Un mini jeux ou l'on devrais résoudre une série d'énigme ou quizz sur
 
 https://www.citizencode.net/blog-actualites/mini-projet-creer-un-quizz-interactif-avec-python
 
+test html: 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interactif</title>
+    <style>
+        /* CSS pour la mise en forme */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .btn-option {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #eee;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn-option:hover {
+            background-color: #ddd;
+        }
+
+        /* Styles pour les réponses sélectionnées / correctes / incorrectes */
+        .btn-option.correct {
+            background-color: #4CAF50; /* Vert */
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .btn-option.incorrect {
+            background-color: #f44336; /* Rouge */
+            color: white;
+            border-color: #f44336;
+        }
+
+        .controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #next-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s;
+            display: none; /* Caché initialement */
+        }
+
+        #next-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #result-container {
+            margin-top: 20px;
+            font-size: 1.5em;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>🧠 Le Grand Quiz en Ligne 🇫🇷</h1>
+    
+    <div id="quiz-area">
+        <div id="question-text" class="question-
+
+
+
+
+python test: 
 # Importe le module 'random' pour mélanger les questions (optionnel, mais sympa)
 import random
 
