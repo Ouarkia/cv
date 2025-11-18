@@ -1,7 +1,9 @@
 Projet: Un mini jeux ou l'on devrais résoudre une série d'énigme ou quizz sur un sujet personnalisé pour faire avancer nos personnages. 
 
+site visité: 
 https://www.citizencode.net/blog-actualites/mini-projet-creer-un-quizz-interactif-avec-python
 
+teste gemini pour visualisation d'exemple:
 test html: 
 <!DOCTYPE html>
 <html lang="fr">
