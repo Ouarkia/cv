@@ -1,3 +1,7 @@
+rajouter score, 
+musique bonne ou mauvaise réponses. 
+
+
 Projet: Un mini jeux ou l'on devrais résoudre une série d'énigme ou quizz sur un sujet personnalisé pour faire avancer nos personnages. 
 +aller "inspection" dans le cours pour regarder les réponses depuis fichier vss
 
