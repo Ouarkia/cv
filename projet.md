@@ -1,4 +1,5 @@
 Projet: Un mini jeux ou l'on devrais résoudre une série d'énigme ou quizz sur un sujet personnalisé pour faire avancer nos personnages. 
++aller "inspection" dans le cours pour regarder les réponses depuis fichier vss
 
 site visité: 
 https://www.citizencode.net/blog-actualites/mini-projet-creer-un-quizz-interactif-avec-python
