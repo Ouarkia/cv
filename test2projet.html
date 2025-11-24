@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Quiz Interactif</title>
+    <style>
+        /* --- CSS pour le Style --- */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            background-color: #eee;
+            color: #333;
+            text-align: left;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .option-button:hover {
+            background-color: #ddd;
+        }
+
+        .option-button:disabled {
+            cursor: default;
+            opacity: 0.6;
+        }
+
+        /* Styles pour les feedbacks visuels */
+        .correct {
+            background-color: #a8e6cf !important; /* Vert clair */
+            border-color: #3c9d7c !important;
+            color: #1e4d3c !important;
+        }
+
+        .incorrect {
+            background-color: #ff8b94 !important; /* Rouge clair */
+            border-color: #9c2f3c !important;
+            color: #4d181e !important;
+        }
+
+        #score-display {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        #next-button {
+            display: none; /* Caché initialement */
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        #next-button:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Mon Super Quiz</h1>
+
+        <div id="quiz-content">
+            <p id="question-number">Question 1/10</p>
+            <p class="question-text" id="question-text"></p>
+            <ul class="options-list" id="options-list">
+                </ul>
+            <button id="next-button">Question Suivante</button>
+        </div>
+
+        <div id="results" class="hidden">
+            <h2>Quiz Terminé !</h2>
+            <p id="final-score"></p>
+            <button onclick="location.reload()">Recommencer le Quiz</button>
+        </div>
+
+        <p id="score-display">Score: 0</p>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT pour la Logique du Quiz ---
+
+        // 1. Définition des Questions
+        const questions = [
+            {
+                question: "Quelle est la capitale de la France ?",
+                options: ["Berlin", "Madrid", "Paris", "Rome"],
+                answer: "Paris"
+            },
+            {
+                question: "Quel est l'élément chimique de symbole 'O' ?",
+                options: ["Or", "Oxygène", "Osmium", "Azote"],
+                answer: "Oxygène"
+            },
+            {
+                question: "Combien y a-t-il de continents sur Terre ?",
+                options: ["5", "6", "7", "8"],
+                answer: "7"
+            },
+            {
+                question: "Qui a écrit 'Les Misérables' ?",
+                options: ["Alexandre Dumas", "Victor Hugo", "Émile Zola", "Albert Camus"],
+                answer: "Victor Hugo"
+            },
+            {
+                question: "Quelle est la planète la plus proche du soleil ?",
+                options: ["Mars", "Vénus", "Mercure", "Terre"],
+                answer: "Mercure"
+            },
+            {
+                question: "En quelle année le premier pas sur la Lune a-t-il eu lieu ?",
+                options: ["1965", "1969", "1972", "1962"],
+                answer: "1969"
+            },
+            {
+                question: "Quelle est la plus haute montagne du monde ?",
+                options: ["K2", "Mont Blanc", "Everest", "Fuji"],
+                answer: "Everest"
+            },
+            {
+                question: "Quel est le plus grand océan ?",
+                options: ["Atlantique", "Indien", "Arctique", "Pacifique"],
+                answer: "Pacifique"
+            },
+            {
+                question: "Quel animal est le plus grand du monde ?",
+                options: ["Éléphant", "Baleine bleue", "Girafe", "Rhinocéros"],
+                answer: "Baleine bleue"
+            },
+            {
+                question: "Quel langage est utilisé pour structurer les pages web ?",
+                options: ["CSS", "JavaScript", "Python", "HTML"],
+                answer: "HTML"
