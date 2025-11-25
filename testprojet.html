@@ -31,6 +31,16 @@
             margin-bottom: 20px;
         }
 
+        #score-display { /* NOUVEAU STYLE POUR L'AFFICHAGE DU SCORE */
+            text-align: right;
+            font-size: 1.1em;
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
         .question-text {
             font-size: 1.2em;
             margin-bottom: 20px;
@@ -95,12 +105,20 @@
             text-align: center;
             color: #333;
         }
+
+        /* Style pour le bouton Rejouer */
+        #play-again-btn {
+            background-color: #28a745 !important;
+            border-color: #28a745 !important;
+        }
     </style>
 </head>
 <body>
 
 <div class="quiz-container">
     <h1>🧠 Le Grand Quiz en Ligne 🇫🇷</h1>
+    
+    <div id="score-display">Score : 0 / 0</div>
     
     <div id="quiz-area">
         <div id="question-text" class="question-text">Question en cours...</div>
@@ -115,12 +133,15 @@
         </div>
 </div>
 
+<audio id="audio-correct" src="SON_BONNE_REPONSE.mp3" preload="auto"></audio>
+<audio id="audio-incorrect" src="SON_MAUVAISE_REPONSE.mp3" preload="auto"></audio>
+
 <script>
     // ----------------------------------------------------
     // JAVASCRIPT pour la logique du quiz
     // ----------------------------------------------------
 
-    // 1. Les données du quiz
+    // 1. Les données du quiz (reste inchangé)
     const questions = [
         {
             question: "Quelle est la capitale de l'Australie ?",
@@ -209,14 +230,21 @@
     let currentQuestionIndex = 0;
     let score = 0;
 
-    // 3. Références aux éléments HTML
+    // 3. Références aux éléments HTML (AJOUT DE scoreDisplay ET AUDIO)
     const questionElement = document.getElementById('question-text');
     const answerButtons = document.getElementById('answer-buttons');
     const nextButton = document.getElementById('next-btn');
     const quizArea = document.getElementById('quiz-area');
     const resultContainer = document.getElementById('result-container');
+    const scoreDisplay = document.getElementById('score-display'); // NOUVEAU
+    const audioCorrect = document.getElementById('audio-correct'); // NOUVEAU
+    const audioIncorrect = document.getElementById('audio-incorrect'); // NOUVEAU
 
     // 4. Fonctions
+    
+    function updateScoreDisplay() { // NOUVELLE FONCTION
+        scoreDisplay.innerHTML = `Score : ${score} / ${questions.length}`;
+    }
     
     function startQuiz() {
         currentQuestionIndex = 0;
@@ -225,7 +253,8 @@
         // Afficher la zone de quiz et cacher le résultat
         quizArea.style.display = 'block';
         resultContainer.style.display = 'none';
-        nextButton.classList.remove('finish'); // S'assurer que le bouton n'a pas la classe finish
+        nextButton.classList.remove('finish'); 
+        updateScoreDisplay(); // MISE À JOUR DU SCORE INITIAL
         showQuestion();
     }
 
@@ -235,14 +264,19 @@
 
         let currentQuestion = questions[currentQuestionIndex];
         let questionNo = currentQuestionIndex + 1;
+        
+        // Mettre à jour l'affichage de la question et du numéro
         questionElement.innerHTML = `(${questionNo}/${questions.length}) ${currentQuestion.question}`;
+        
+        // Mettre à jour l'affichage du score
+        updateScoreDisplay(); // Afficher le score même lors du changement de question
 
         // 2. Créer les boutons pour les réponses
         currentQuestion.answers.forEach(answer => {
             const button = document.createElement("button");
             button.innerHTML = answer.text;
             button.classList.add("btn-option");
-            // Stocker la propriété 'correct' du JS dans l'élément HTML pour le retrouver après un clic
+            // Stocker la propriété 'correct' du JS dans l'élément HTML
             if (answer.correct) {
                 button.dataset.correct = answer.correct; 
             }
@@ -268,11 +302,15 @@
         if (isCorrect) {
             selectedBtn.classList.add("correct");
             score++;
+            audioCorrect.play(); // JOUER LE SON CORRECT
         } else {
             selectedBtn.classList.add("incorrect");
+            audioIncorrect.play(); // JOUER LE SON INCORRECT
         }
+        
+        updateScoreDisplay(); // MISE À JOUR DU SCORE APRÈS LE CHOIX
 
-        // Marquer la bonne réponse si l'utilisateur a faux (ou même s'il a juste)
+        // Marquer la bonne réponse et désactiver tous les boutons
         Array.from(answerButtons.children).forEach(button => {
             if(button.dataset.correct === "true") {
                 button.classList.add("correct");
