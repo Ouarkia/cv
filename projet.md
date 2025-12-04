@@ -17,7 +17,7 @@ site visité:
 https://www.citizencode.net/blog-actualites/mini-projet-creer-un-quizz-interactif-avec-python
 
 teste gemini pour visualisation d'exemple:
-mettre totes les modifs
+mettre totes les modifs<br>
 Projet1= Test IA prof<br>
 Projet2: mon test IA amélioré<br>
 Projet 3: modif titre + ajout du score<br>
