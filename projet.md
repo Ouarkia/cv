@@ -17,3 +17,4 @@ site visité:
 https://www.citizencode.net/blog-actualites/mini-projet-creer-un-quizz-interactif-avec-python
 
 teste gemini pour visualisation d'exemple:
+
