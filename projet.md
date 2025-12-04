@@ -18,11 +18,11 @@ https://www.citizencode.net/blog-actualites/mini-projet-creer-un-quizz-interacti
 
 teste gemini pour visualisation d'exemple:
 mettre totes les modifs
-Projet1= Test IA prof
-Projet2: mon test IA amélioré
-Projet 3: modif titre + ajout du score
+Projet1= Test IA prof<br>
+Projet2: mon test IA amélioré<br>
+Projet 3: modif titre + ajout du score<br>
 
-Projet 4: modif dernière question supp "blanc" + ajout musique
-Projet 5: ajout fichier CSV
-Projet 6: modif couleur
+Projet 4: modif dernière question supp "blanc" + ajout musique<br>
+Projet 5: ajout fichier CSV<br>
+Projet 6: modif couleur<br>
 
