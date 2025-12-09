@@ -53,22 +53,20 @@
         #timer-bar {
             height: 100%;
             width: 100%; 
-            background-color: #f44336; /* Rouge de base */
-            /* MODIFIÉ : Ajout de la transition pour la couleur */
+            background-color: #4CAF50; /* Couleur Verte par défaut */
+            /* MODIFIÉ: Ajout de background-color à la transition */
             transition: width linear, background-color 0.4s ease; 
             position: absolute;
             top: 0;
             left: 0;
         }
         
-        /* NOUVEAU: Style pour le mode Avertissement (temps faible) */
+        /* NOUVEAU: Styles d'alerte du timer */
         .timer-warning #timer-bar {
-            background-color: #ff9800; /* Couleur Orange */
+            background-color: #ff9800; /* Orange à 5s */
         }
-
-        /* NOUVEAU: Style pour le mode Critique (temps très faible) */
         .timer-critical #timer-bar {
-            background-color: #d32f2f; /* Couleur Rouge foncé */
+            background-color: #f44336; /* Rouge à 3s */
         }
         
         #timer-text { 
@@ -79,7 +77,7 @@
             color: white; 
             font-weight: bold;
             text-align: right;
-            mix-blend-mode: difference; 
+            /* mix-blend-mode: difference; */ /* Commenté pour une meilleure lisibilité */
         }
 
         .question-text {
@@ -99,18 +97,11 @@
             background-color: #eee;
             cursor: pointer;
             text-align: left;
-            /* MODIFIÉ : Ajout de box-shadow pour l'effet de clic */
-            transition: background-color 0.2s, transform 0.1s, box-shadow 0.1s;
+            transition: background-color 0.2s, transform 0.1s;
         }
 
         .btn-option:hover {
             background-color: #ddd;
-        }
-        
-        /* NOUVEAU : Effet de pression au clic */
-        .btn-option:active {
-            transform: scale(0.98); /* Réduit légèrement la taille */
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset; /* Ajoute une ombre interne */
         }
 
         /* Styles pour les réponses sélectionnées / correctes / incorrectes */
@@ -194,4 +185,412 @@
         <div id="answer-buttons">
             </div>
         <div class="controls">
-            <button id
+            <button id="next-btn" disabled>Question Suivante ▶️</button>
+        </div>
+    </div>
+    
+    <div id="result-container" style="display:none;">
+    </div>
+
+    <div id="history-display">
+        <h3>Historique des 5 derniers scores:</h3>
+        <ul id="score-history-list">
+            <li>Aucun score enregistré.</li>
+        </ul>
+    </div>
+</div>
+
+<audio id="audio-correct" src="audio/the-correct-answer-33-183620.mp3" preload="auto"></audio>
+<audio id="audio-incorrect" src="audio/wrong-answer-21-199825.mp3" preload="auto"></audio>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script>
+    // ----------------------------------------------------
+    // JAVASCRIPT pour la logique du quiz
+    // ----------------------------------------------------
+
+    // 1. URL de votre CSV
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQszfEph8NEnStUdfkFSmPf470xutMeMi-HI7vZeO2y4NI2OJcxJjTbbrkabW18mWmqZ2DHnFS2tij8/pub?output=csv';
+    let allQuestions = []; 
+    let questions = []; 
+
+    // 2. Variables d'état
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    // 3. Références aux éléments HTML
+    const questionElement = document.getElementById('question-text');
+    const answerButtons = document.getElementById('answer-buttons');
+    const nextButton = document.getElementById('next-btn');
+    const quizArea = document.getElementById('quiz-area');
+    const resultContainer = document.getElementById('result-container');
+    const scoreDisplay = document.getElementById('score-display'); 
+    const audioCorrect = document.getElementById('audio-correct'); 
+    const audioIncorrect = document.getElementById('audio-incorrect'); 
+    const historyList = document.getElementById('score-history-list'); 
+
+    // Références au Timer
+    const timerContainer = document.getElementById('timer-container'); // Référence au conteneur pour ajouter les classes
+    const timerBar = document.getElementById('timer-bar');
+    const timerText = document.getElementById('timer-text');
+    let timerInterval; 
+    const TIME_LIMIT = 10; // Limite en secondes
+    const WARNING_TIME = 5; // Temps pour passer en mode Avertissement (Orange)
+    const CRITICAL_TIME = 3; // Temps pour passer en mode Critique (Rouge)
+    
+    // Clé pour le stockage local
+    const HISTORY_KEY = 'quiz_score_history';
+
+    // ----------------------------------------------------
+    // 4. Fonctions d'Utilité (NOUVELLES)
+    // ----------------------------------------------------
+    
+    /**
+     * Lance l'animation de confettis.
+     * @param {boolean} isFinalSuccess - Vrai si c'est le succès final du quiz.
+     */
+    function launchConfetti(isFinalSuccess = false) {
+        // Paramètres de base
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+        // Couleurs de la France pour les confettis
+        const colors = ['#0055a4', '#ffffff', '#ef4135']; 
+        
+        // Tir 1 : Gauche
+        confetti({ ...defaults, particleCount: 50, origin: { x: 0.1, y: 0.8 }, colors: colors });
+        
+        // Tir 2 : Droit
+        confetti({ ...defaults, particleCount: 50, origin: { x: 0.9, y: 0.8 }, colors: colors });
+        
+        if (isFinalSuccess) {
+            // Tir 3 : Central pour la célébration finale
+            confetti({ ...defaults, particleCount: 100, origin: { x: 0.5, y: 0.5 }, angle: 90, gravity: 0.5, colors: colors });
+        }
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function loadScoreHistory() {
+        const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+        return history;
+    }
+
+    function saveAndDisplayScoreHistory(newScore, totalQuestions) {
+        const history = loadScoreHistory();
+        const timestamp = new Date().toLocaleString('fr-FR');
+        
+        history.unshift({ score: newScore, total: totalQuestions, date: timestamp });
+
+        const latestHistory = history.slice(0, 5);
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(latestHistory));
+
+        historyList.innerHTML = '';
+        if (latestHistory.length === 0) {
+            historyList.innerHTML = '<li>Aucun score enregistré.</li>';
+        } else {
+            latestHistory.forEach((item) => {
+                const li = document.createElement('li');
+                li.textContent = `(${item.date}) : ${item.score} / ${item.total}`;
+                historyList.appendChild(li);
+            });
+        }
+    }
+
+
+    // ----------------------------------------------------
+    // 5. Logique du Timer (MODIFIÉ)
+    // ----------------------------------------------------
+    
+    function startTimer() {
+        clearInterval(timerInterval);
+        
+        // Réinitialiser les styles du timer
+        timerContainer.classList.remove('timer-warning', 'timer-critical');
+        timerBar.style.background = '4CAF50'; // Vert initial
+        timerBar.style.transition = 'none'; 
+        timerBar.style.width = '100%';
+        timerText.innerHTML = `${TIME_LIMIT}s`;
+
+        // Démarrer l'animation de la barre après un petit délai pour réinitialiser
+        setTimeout(() => {
+            timerBar.style.transition = `width ${TIME_LIMIT}s linear, background-color 0.4s ease`;
+            timerBar.style.width = '0%';
+        }, 50); 
+    
+        let timeLeft = TIME_LIMIT;
+    
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            
+            if (timeLeft >= 0) {
+                timerText.innerHTML = `${timeLeft}s`;
+            }
+            
+            // NOUVEAU: Changer la couleur en fonction du temps restant
+            if (timeLeft <= CRITICAL_TIME) {
+                timerContainer.classList.add('timer-critical');
+                timerContainer.classList.remove('timer-warning');
+            } else if (timeLeft <= WARNING_TIME) {
+                timerContainer.classList.add('timer-warning');
+                timerContainer.classList.remove('timer-critical');
+            } else {
+                timerContainer.classList.remove('timer-warning', 'timer-critical');
+            }
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                handleTimeOut(); 
+            }
+        }, 1000); 
+    }
+
+    // ----------------------------------------------------
+    // 6. Fonctions de Quiz (Mises à Jour)
+    // ----------------------------------------------------
+
+    function updateScoreDisplay() { 
+        scoreDisplay.innerHTML = `Score : ${score} / ${questions.length || 0}`;
+    }
+    
+    function startQuiz() {
+        if (allQuestions.length === 0) {
+            questionElement.innerHTML = "Erreur de chargement des questions.";
+            return;
+        }
+
+        questions = [...allQuestions];
+        shuffleArray(questions);
+
+        currentQuestionIndex = 0;
+        score = 0;
+        nextButton.innerHTML = "Question Suivante ▶️";
+        quizArea.style.display = 'block';
+        resultContainer.style.display = 'none';
+        nextButton.classList.remove('finish'); 
+        updateScoreDisplay(); 
+        saveAndDisplayScoreHistory(0, questions.length); // Afficher l'historique initial
+        showQuestion();
+    }
+
+    function showQuestion() {
+        resetState(); 
+        startTimer(); 
+
+        let currentQuestion = questions[currentQuestionIndex];
+        let questionNo = currentQuestionIndex + 1;
+        
+        questionElement.innerHTML = `(${questionNo}/${questions.length}) ${currentQuestion.question}`;
+        
+        updateScoreDisplay(); 
+
+        currentQuestion.answers.forEach((answer) => {
+            const button = document.createElement("button");
+            button.innerHTML = answer.text;
+            button.classList.add("btn-option");
+            
+            if (answer.correct) {
+                button.dataset.correct = "true"; 
+            }
+            button.addEventListener("click", selectAnswer);
+            answerButtons.appendChild(button);
+        });
+    }
+
+    function resetState() {
+        nextButton.style.display = 'none';
+        while(answerButtons.firstChild){
+            answerButtons.removeChild(answerButtons.firstChild);
+        }
+        clearInterval(timerInterval);
+        // Réinitialiser les classes du timer
+        timerContainer.classList.remove('timer-warning', 'timer-critical'); 
+    }
+    
+    function disableAnswerButtons() {
+         Array.from(answerButtons.children).forEach(button => {
+            button.disabled = true;
+        });
+    }
+
+    function selectAnswer(e) {
+        clearInterval(timerInterval); 
+
+        const selectedBtn = e.target;
+        const isCorrect = selectedBtn.dataset.correct === "true"; 
+
+        if (isCorrect) {
+            selectedBtn.classList.add("correct");
+            score++;
+            audioCorrect.play(); 
+        } else {
+            selectedBtn.classList.add("incorrect");
+            audioIncorrect.play(); 
+        }
+        
+        updateScoreDisplay(); 
+
+        Array.from(answerButtons.children).forEach(button => {
+            if(button.dataset.correct === "true") {
+                button.classList.add("correct");
+            }
+        });
+        
+        disableAnswerButtons();
+
+        nextButton.style.display = 'block';
+        nextButton.disabled = false;
+        
+        if (currentQuestionIndex === questions.length - 1) {
+             nextButton.innerHTML = "Voir le Résultat 🏆";
+             nextButton.classList.add('finish');
+        }
+    }
+    
+    function handleTimeOut() {
+        disableAnswerButtons(); 
+        
+        Array.from(answerButtons.children).forEach(button => {
+            if(button.dataset.correct === "true") {
+                button.classList.add("correct");
+            }
+        });
+
+        timerText.innerHTML = `TEMPS ÉCOULÉ !`;
+        audioIncorrect.play(); 
+
+        nextButton.style.display = 'block';
+        nextButton.disabled = false;
+
+        if (currentQuestionIndex === questions.length - 1) {
+            nextButton.innerHTML = "Voir le Résultat 🏆";
+            nextButton.classList.add('finish');
+        }
+    }
+
+    function handleNextButton() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            showQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        quizArea.style.display = 'none';
+        resultContainer.style.display = 'block';
+        const totalQuestions = questions.length;
+        const percentage = Math.round((score / totalQuestions) * 100);
+
+        // Sauvegarder le score final dans l'historique
+        saveAndDisplayScoreHistory(score, totalQuestions); 
+
+        let message = `Vous avez obtenu **${score} / ${totalQuestions}** (${percentage}%) !<br>`;
+        let isSuccess = false;
+
+        if (score === totalQuestions) {
+            message += "🥳 **Félicitations ! Un sans-faute !**";
+            isSuccess = true;
+        } else if (score >= totalQuestions * 0.7) {
+            message += "✨ **Excellent ! Très bon score !**";
+            isSuccess = true;
+        } else {
+            message += "📚 **Bien joué !** Un peu d'entraînement et c'est parfait.";
+        }
+        
+        resultContainer.innerHTML = message;
+        
+        const playAgainBtn = document.createElement("button");
+        playAgainBtn.innerHTML = "Rejouer le Quiz 🔁";
+        playAgainBtn.id = "play-again-btn";
+        playAgainBtn.classList.add("btn-option");
+        playAgainBtn.style.marginTop = "20px";
+        playAgainBtn.addEventListener("click", () => {
+             startQuiz();
+        });
+        resultContainer.appendChild(playAgainBtn);
+        
+        // NOUVEAU: Lancer les confettis pour la fin du quiz (si succès)
+        if (isSuccess) {
+            launchConfetti(true);
+        }
+    }
+    
+    // 7. FONCTIONS DE CHARGEMENT CSV
+    
+    function formatQuestions(data) {
+        // ... (fonction formatQuestions inchangée) ...
+        const formattedQuestions = [];
+        data.forEach(row => {
+            if (!row.question) return; 
+
+            const questionText = row.question;
+            const answers = [];
+            const correctIndex = parseInt(row.correct_index, 10);
+            
+            let answerIndex = 0;
+            // Assurez-vous que vos colonnes dans le CSV sont nommées "answer1", "answer2", "correct_index", etc.
+            while (row[`answer${answerIndex + 1}`]) { 
+                const answerText = row[`answer${answerIndex + 1}`];
+                if (answerText.trim() !== "") {
+                    answers.push({
+                        text: answerText,
+                        correct: answerIndex === correctIndex 
+                    });
+                }
+                answerIndex++;
+            }
+
+            if (answers.length > 0) {
+                formattedQuestions.push({
+                    question: questionText,
+                    answers: answers
+                });
+            }
+        });
+        return formattedQuestions;
+    }
+
+    function loadQuestions() {
+        questionElement.innerHTML = "Chargement des questions depuis Google Sheets...";
+        timerText.innerHTML = "Attente..."; 
+
+        Papa.parse(CSV_URL, {
+            download: true, 
+            header: true,   
+            skipEmptyLines: true,
+            complete: function(results) {
+                if (results.data && results.data.length > 0) {
+                    allQuestions = formatQuestions(results.data); 
+                    
+                    if (allQuestions.length > 0) {
+                        startQuiz(); 
+                    } else {
+                        questionElement.innerHTML = "Erreur: Aucune question valide trouvée dans le CSV. Vérifiez les en-têtes (question, answer1, correct_index, etc.).";
+                    }
+                } else {
+                    questionElement.innerHTML = "Erreur: Impossible de charger ou d'analyser le CSV.";
+                }
+            },
+            error: function(error) {
+                questionElement.innerHTML = "Erreur de chargement du CSV: " + error.message;
+            }
+        });
+    }
+
+    // Événement pour passer à la question suivante
+    nextButton.addEventListener("click", handleNextButton);
+
+    // Lancer le chargement des questions au démarrage
+    loadQuestions();
+</script>
+
+</body>
+</html>
