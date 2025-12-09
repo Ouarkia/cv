@@ -41,7 +41,7 @@
             border-bottom: 1px solid #eee;
         }
 
-        /* Styles pour le chronomètre */
+        /* Styles pour le chronomètre (RÉINTÉGRÉ) */
         #timer-container {
             height: 25px;
             background-color: #e0e0e0;
@@ -69,6 +69,7 @@
             text-align: right;
             mix-blend-mode: difference; 
         }
+        /* FIN STYLES CHRONOMÈTRE */
 
         .question-text {
             font-size: 1.2em;
@@ -153,7 +154,6 @@
         <div id="timer-bar"></div>
         <div id="timer-text">Chargement...</div>
     </div>
-    
     <div id="quiz-area">
         <div id="question-text" class="question-text">Chargement des questions...</div>
         <div id="answer-buttons">
@@ -179,7 +179,7 @@
 
     // 1. URL de votre CSV
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQszfEph8NEnStUdfkFSmPf470xutMeMi-HI7vZeO2y4NI2OJcxJjTbbrkabW18mWmqZ2DHnFS2tij8/pub?output=csv';
-    let questions = []; // La liste de questions sera remplie par le CSV
+    let questions = []; 
 
     // 2. Variables d'état
     let currentQuestionIndex = 0;
@@ -195,19 +195,20 @@
     const audioCorrect = document.getElementById('audio-correct'); 
     const audioIncorrect = document.getElementById('audio-incorrect'); 
 
-    // Références au Timer
+    // Références au Timer (RÉINTÉGRÉES)
     const timerBar = document.getElementById('timer-bar');
     const timerText = document.getElementById('timer-text');
     let timerInterval; 
     const TIME_LIMIT = 10; // Limite en secondes
+    // FIN RÉFÉRENCES TIMER
 
     // 4. Fonctions de Quiz
 
     function updateScoreDisplay() { 
-        // S'assurer que 'questions' est chargé avant d'afficher le total
         scoreDisplay.innerHTML = `Score : ${score} / ${questions.length || 0}`;
     }
     
+    // Fonction du Timer (RÉINTÉGRÉE)
     function startTimer() {
         clearInterval(timerInterval);
         timerBar.style.transition = 'none'; 
@@ -230,13 +231,13 @@
             
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                handleTimeOut();
+                handleTimeOut(); // Appel si le temps est écoulé
             }
         }, 1000); 
     }
+    // FIN startTimer
 
     function startQuiz() {
-        // Cette fonction est maintenant appelée par loadQuestions() une fois le CSV prêt
         if (questions.length === 0) {
             questionElement.innerHTML = "Erreur de chargement des questions.";
             return;
@@ -254,7 +255,7 @@
 
     function showQuestion() {
         resetState(); 
-        startTimer();
+        startTimer(); // DÉMARRAGE DU TIMER À CHAQUE QUESTION
 
         let currentQuestion = questions[currentQuestionIndex];
         let questionNo = currentQuestionIndex + 1;
@@ -269,7 +270,6 @@
             button.innerHTML = answer.text;
             button.classList.add("btn-option");
             
-            // Si c'est la bonne réponse, on stocke la propriété
             if (answer.correct) {
                 button.dataset.correct = "true"; 
             }
@@ -283,7 +283,7 @@
         while(answerButtons.firstChild){
             answerButtons.removeChild(answerButtons.firstChild);
         }
-        clearInterval(timerInterval);
+        clearInterval(timerInterval); // ARRÊT DU TIMER LORS DE LA TRANSITION
     }
     
     function disableAnswerButtons() {
@@ -293,14 +293,14 @@
     }
 
     function selectAnswer(e) {
-        clearInterval(timerInterval);
+        clearInterval(timerInterval); // ARRÊT DU TIMER SI L'UTILISATEUR RÉPOND
 
         const selectedBtn = e.target;
         const isCorrect = selectedBtn.dataset.correct === "true"; 
 
         if (isCorrect) {
             selectedBtn.classList.add("correct");
-            score++;
+            score++; // AJOUT DU POINT SI RÉPONSE MANUELLE
             audioCorrect.play(); 
         } else {
             selectedBtn.classList.add("incorrect");
@@ -327,10 +327,11 @@
         }
     }
     
+    // Fonction si le temps est écoulé (RÉINTÉGRÉE)
     function handleTimeOut() {
         disableAnswerButtons(); 
         
-        // Marque la bonne réponse en vert (pas de score ajouté car score++ est dans selectAnswer)
+        // Affiche la bonne réponse (sans ajouter de point)
         Array.from(answerButtons.children).forEach(button => {
             if(button.dataset.correct === "true") {
                 button.classList.add("correct");
@@ -379,19 +380,16 @@
         playAgainBtn.classList.add("btn-option");
         playAgainBtn.style.marginTop = "20px";
         playAgainBtn.addEventListener("click", () => {
-             // Recharger les questions depuis le CSV pour un nouveau quiz
              loadQuestions(); 
         });
         resultContainer.appendChild(playAgainBtn);
     }
     
-    // 5. FONCTIONS DE CHARGEMENT CSV
+    // 5. FONCTIONS DE CHARGEMENT CSV (Inchangées)
     
-    // Convertit les données brutes du CSV dans la structure JSON attendue par le quiz
     function formatQuestions(data) {
         const formattedQuestions = [];
         data.forEach(row => {
-            // S'assurer que la ligne n'est pas vide et a une question
             if (!row.question) return; 
 
             const questionText = row.question;
@@ -399,7 +397,6 @@
             const correctIndex = parseInt(row.correct_index, 10);
             
             let answerIndex = 0;
-            // Parcourir toutes les colonnes qui ressemblent à des réponses (answer1, answer2...)
             while (row[`answer${answerIndex + 1}`]) {
                 const answerText = row[`answer${answerIndex + 1}`];
                 if (answerText.trim() !== "") {
@@ -423,20 +420,18 @@
 
     function loadQuestions() {
         questionElement.innerHTML = "Chargement des questions depuis Google Sheets...";
-        timerText.innerHTML = "Attente...";
+        timerText.innerHTML = "Attente..."; // Texte du timer mis à jour
 
-        // Utiliser PapaParse pour récupérer et analyser le CSV
         Papa.parse(CSV_URL, {
-            download: true, // Télécharger le fichier depuis l'URL
-            header: true,   // Utiliser la première ligne comme en-têtes (question, answer1, correct_index, etc.)
+            download: true, 
+            header: true,   
             skipEmptyLines: true,
             complete: function(results) {
                 if (results.data && results.data.length > 0) {
                     questions = formatQuestions(results.data);
-                    console.log("Questions chargées:", questions);
                     
                     if (questions.length > 0) {
-                        startQuiz(); // Lancer le quiz une fois les questions prêtes
+                        startQuiz(); 
                     } else {
                         questionElement.innerHTML = "Erreur: Aucune question valide trouvée dans le CSV. Vérifiez les en-têtes.";
                     }
