@@ -496,13 +496,13 @@
         let isSuccess = false;
 
         if (score === totalQuestions) {
-            message += "🥳 **Félicitations ! Un sans-faute !**";
+            message += "🥳 Félicitations ! Un sans-faute !";
             isSuccess = true;
         } else if (score >= totalQuestions * 0.7) {
-            message += "✨ **Excellent ! Très bon score !**";
+            message += "✨ Excellent ! Très bon score !";
             isSuccess = true;
         } else {
-            message += "📚 **Bien joué !** Un peu d'entraînement et c'est parfait.";
+            message += "📚 Bien joué !** Un peu d'entraînement et c'est parfait.";
         }
         
         resultContainer.innerHTML = message;
