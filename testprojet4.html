@@ -41,6 +41,36 @@
             border-bottom: 1px solid #eee;
         }
 
+        /* Styles pour le chronomètre (NOUVEAU) */
+        #timer-container {
+            height: 25px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative; 
+            margin-bottom: 20px; /* Espace après le chrono */
+        }
+        #timer-bar {
+            height: 100%;
+            width: 100%; 
+            background-color: #f44336; /* Rouge */
+            transition: width linear; /* Transition pour l'animation */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #timer-text { 
+            position: relative;
+            z-index: 10;
+            padding-right: 10px;
+            line-height: 25px; 
+            color: white; 
+            font-weight: bold;
+            text-align: right;
+            mix-blend-mode: difference; /* Pour assurer la lisibilité */
+        }
+        /* FIN NOUVEAU TIMER */
+
         .question-text {
             font-size: 1.2em;
             margin-bottom: 20px;
@@ -119,7 +149,11 @@
     <h1>🧠 Le Grand Quiz 🇫🇷</h1>
     
     <div id="score-display">Score : 0 / 0</div>
-    
+
+    <div id="timer-container">
+        <div id="timer-bar"></div>
+        <div id="timer-text">10s</div>
+    </div>
     <div id="quiz-area">
         <div id="question-text" class="question-text">Question en cours...</div>
         <div id="answer-buttons">
@@ -230,7 +264,7 @@
     let currentQuestionIndex = 0;
     let score = 0;
 
-    // 3. Références aux éléments HTML (AJOUT DE scoreDisplay ET AUDIO)
+    // 3. Références aux éléments HTML
     const questionElement = document.getElementById('question-text');
     const answerButtons = document.getElementById('answer-buttons');
     const nextButton = document.getElementById('next-btn');
@@ -240,70 +274,52 @@
     const audioCorrect = document.getElementById('audio-correct'); 
     const audioIncorrect = document.getElementById('audio-incorrect'); 
 
+    // NOUVEAU : Références au Timer
+    const timerBar = document.getElementById('timer-bar');
+    const timerText = document.getElementById('timer-text');
+    let timerInterval; 
+    const TIME_LIMIT = 10; // Limite en secondes
+    // FIN NOUVEAU TIMER
+
     // 4. Fonctions
     
     function updateScoreDisplay() { 
         scoreDisplay.innerHTML = `Score : ${score} / ${questions.length}`;
     }
-  <div id="score-display">Score : 0 / 0</div>
-
-    <div id="timer-container" style="margin-bottom: 20px;">
-        <div id="timer-bar"></div>
-        <div id="timer-text" style="text-align: right; font-weight: bold; color: #f44336;">10s</div>
-    </div>
-    <div id="quiz-area">
-        ```
-
-### B. Modifications CSS (Style du chronomètre)
-
-Ajoutez ce style dans la balise `<style>` pour que la barre de progression soit visible et s'anime :
-
-```css
-        /* Styles pour le chronomètre */
-        #timer-container {
-            height: 25px;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-            overflow: hidden;
-            position: relative; /* Pour positionner la barre */
-        }
-        #timer-bar {
-            height: 100%;
-            width: 100%; /* Démarrage à 100% (10 secondes) */
-            background-color: #f44336; /* Rouge */
-            transition: width linear; /* Transition douce pour l'animation */
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        #timer-text { /* Pour l'affichage textuel du temps */
-            position: relative;
-            z-index: 10;
-            padding-right: 10px;
-            line-height: 25px; /* Centrer le texte verticalement */
-            color: white !important; /* Texte blanc sur fond rouge */
-            mix-blend-mode: difference; /* Pour assurer la lisibilité */
-        }
-  // 3. Références aux éléments HTML (AJOUT DE scoreDisplay ET AUDIO)
-const questionElement = document.getElementById('question-text');
-const answerButtons = document.getElementById('answer-buttons');
-const nextButton = document.getElementById('next-btn');
-const quizArea = document.getElementById('quiz-area');
-const resultContainer = document.getElementById('result-container');
-const scoreDisplay = document.getElementById('score-display');
-const audioCorrect = document.getElementById('audio-correct');
-const audioIncorrect = document.getElementById('audio-incorrect');
-
-// NOUVEAU : Références au Timer
-const timerBar = document.getElementById('timer-bar');
-const timerText = document.getElementById('timer-text');
-let timerInterval; // Pour stocker la référence du décompte
-const TIME_LIMIT = 10; // Limite en secondes
-// FIN NOUVEAU
-
-// 4. Fonctions
-// ...
     
+    function startTimer() {
+        // Arrêter tout intervalle précédent
+        clearInterval(timerInterval);
+
+        // Réinitialiser la barre de progression (transition désactivée pour un reset immédiat)
+        timerBar.style.transition = 'none'; 
+        timerBar.style.width = '100%';
+        timerText.innerHTML = `${TIME_LIMIT}s`;
+
+        // Lancer l'animation après un court délai pour que le reset soit pris en compte
+        setTimeout(() => {
+            timerBar.style.transition = `width ${TIME_LIMIT}s linear`;
+            timerBar.style.width = '0%';
+        }, 50); 
+    
+        let timeLeft = TIME_LIMIT;
+    
+        // Démarrer le décompte
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            
+            if (timeLeft >= 0) {
+                timerText.innerHTML = `${timeLeft}s`;
+            }
+            
+            // Si le temps est écoulé
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                handleTimeOut();
+            }
+        }, 1000); 
+    }
+
     function startQuiz() {
         currentQuestionIndex = 0;
         score = 0;
@@ -312,13 +328,15 @@ const TIME_LIMIT = 10; // Limite en secondes
         quizArea.style.display = 'block';
         resultContainer.style.display = 'none';
         nextButton.classList.remove('finish'); 
-        updateScoreDisplay(); // MISE À JOUR DU SCORE INITIAL
+        updateScoreDisplay(); 
         showQuestion();
     }
 
     function showQuestion() {
-        // 1. Réinitialiser la zone des réponses
-        resetState();
+        // 1. Réinitialiser la zone des réponses et le chrono
+        resetState(); 
+        // Démarrer le chronomètre
+        startTimer();
 
         let currentQuestion = questions[currentQuestionIndex];
         let questionNo = currentQuestionIndex + 1;
@@ -327,7 +345,7 @@ const TIME_LIMIT = 10; // Limite en secondes
         questionElement.innerHTML = `(${questionNo}/${questions.length}) ${currentQuestion.question}`;
         
         // Mettre à jour l'affichage du score
-        updateScoreDisplay(); // Afficher le score même lors du changement de question
+        updateScoreDisplay(); 
 
         // 2. Créer les boutons pour les réponses
         currentQuestion.answers.forEach(answer => {
@@ -350,156 +368,21 @@ const TIME_LIMIT = 10; // Limite en secondes
         while(answerButtons.firstChild){
             answerButtons.removeChild(answerButtons.firstChild);
         }
-      clearInterval(timerInterval);
+        // Arrêter le chronomètre précédent
+        clearInterval(timerInterval);
     }
-function startTimer() {
-    // Réinitialiser la barre de progression
-    timerBar.style.transition = 'none'; // Désactiver la transition pour le reset immédiat
-    timerBar.style.width = '100%';
-    // Réactiver la transition pour l'animation
-    setTimeout(() => {
-        timerBar.style.transition = `width ${TIME_LIMIT}s linear`;
-        timerBar.style.width = '0%';
-    }, 50); // Petit délai pour s'assurer que le reset est visuel avant le start
-
-    let timeLeft = TIME_LIMIT;
-    timerText.innerHTML = `${timeLeft}s`;
-
-    // Démarrer l'intervalle pour mettre à jour le texte du chronomètre
-    timerInterval = setInterval(() => {
-        timeLeft--;
-        if (timeLeft >= 0) {
-            timerText.innerHTML = `${timeLeft}s`;
-        }
-
-        // Si le temps est écoulé
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            // Appel à la fonction qui gère le temps écoulé
-            handleTimeOut();
-        }
-    }, 1000); // 1000ms = 1 seconde
-}
-
-function showQuestion() {
-    // 1. Réinitialiser la zone des réponses
-    resetState();
-
-    // NOUVEAU : Démarrer le chronomètre
-    startTimer();
-
-    let currentQuestion = questions[currentQuestionIndex];
-    // ... reste du contenu de showQuestion (création des boutons) ...
-}
-
-// NOUVEAU : Fonction appelée lorsque le temps est écoulé
-function handleTimeOut() {
-    // Trouver la bonne réponse (pour l'afficher en vert)
-    let correctButton;
-
-    Array.from(answerButtons.children).forEach(button => {
-        // Désactiver tous les boutons
-        button.disabled = true;
-
-        // Trouver et marquer la bonne réponse en vert
-        if(button.dataset.correct === "true") {
-            button.classList.add("correct");
-            correctButton = button;
-        }
-    });
-
-    // Afficher l'état du chronomètre (pour montrer que le temps est fini)
-    timerText.innerHTML = `TEMPS ÉCOULÉ !`;
-    audioIncorrect.play(); // Jouer le son incorrect
-
-    // Afficher le bouton Suivant
-    nextButton.style.display = 'block';
-    nextButton.disabled = false;
-
-    // Mise à jour pour le bouton de résultat si c'était la dernière question
-    if (currentQuestionIndex === questions.length - 1) {
-        nextButton.innerHTML = "Voir le Résultat 🏆";
-        nextButton.classList.add('finish');
-    }
-}
-    function selectAnswer(e) {
-      clearInterval(timerInterval);
-        const selectedBtn = e.target;
-        // La propriété 'dataset.correct' est 'true' si la réponse est correcte
-        const isCorrect = selectedBtn.dataset.correct === "true"; 
-
-        if (isCorrect) {
-            selectedBtn.classList.add("correct");
-            score++;
-            audioCorrect.play(); // JOUER LE SON CORRECT
-        } else {
-            selectedBtn.classList.add("incorrect");
-            audioIncorrect.play(); // JOUER LE SON INCORRECT
-        }
-        
-        updateScoreDisplay(); // MISE À JOUR DU SCORE APRÈS LE CHOIX
-
-        // Marquer la bonne réponse et désactiver tous les boutons
-        Array.from(answerButtons.children).forEach(button => {
-            if(button.dataset.correct === "true") {
-                button.classList.add("correct");
-            }
-            // Désactiver tous les boutons après le premier clic
+    
+    function disableAnswerButtons() {
+         // Désactiver tous les boutons après le premier clic ou temps écoulé
+         Array.from(answerButtons.children).forEach(button => {
             button.disabled = true;
         });
-
-        // Afficher le bouton Suivant
-        nextButton.style.display = 'block';
-        nextButton.disabled = false;
-        
-        // Mettre à jour le texte du bouton si c'est la dernière question
-        if (currentQuestionIndex === questions.length - 1) {
-             nextButton.innerHTML = "Voir le Résultat 🏆";
-             nextButton.classList.add('finish');
-        }
     }
 
-    function handleNextButton() {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-            showQuestion();
-        } else {
-            showResult();
-        }
-    }
+    function selectAnswer(e) {
+        // Arrêter le chronomètre dès qu'une réponse est cliquée
+        clearInterval(timerInterval);
 
-    function showResult() {
-        // Cacher la zone de quiz et afficher le résultat
-        quizArea.style.display = 'none';
-        resultContainer.style.display = 'block';
-
-        let message = `Vous avez obtenu ${score} / ${questions.length} !<br>`;
-        if (score === questions.length) {
-            message += "🥳 Félicitations ! Vous êtes un maître du quiz !";
-        } else if (score >= questions.length * 0.7) {
-            message += "✨ Excellent ! Très bon score !";
-        } else {
-            message += "📚 Bien joué ! Un peu d'entraînement et c'est parfait.";
-        }
-        
-        resultContainer.innerHTML = message;
-        
-        // Ajouter un bouton pour rejouer
-        const playAgainBtn = document.createElement("button");
-        playAgainBtn.innerHTML = "Rejouer le Quiz 🔁";
-        playAgainBtn.id = "play-again-btn";
-        playAgainBtn.classList.add("btn-option");
-        playAgainBtn.style.marginTop = "20px";
-        playAgainBtn.addEventListener("click", startQuiz);
-        resultContainer.appendChild(playAgainBtn);
-    }
-
-    // Événement pour passer à la question suivante
-    nextButton.addEventListener("click", handleNextButton);
-
-    // Lancer le quiz au chargement de la page
-    startQuiz();
-</script>
-
-</body>
-</html>
+        const selectedBtn = e.target;
+        // La propriété 'dataset.correct' est 'true' si la réponse est correcte
+        const isCorrect = selectedBtn.dataset.correct === "true";
