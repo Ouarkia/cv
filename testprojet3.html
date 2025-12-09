@@ -31,7 +31,7 @@
             margin-bottom: 20px;
         }
 
-        #score-display { /* NOUVEAU STYLE POUR L'AFFICHAGE DU SCORE */
+        #score-display { 
             text-align: right;
             font-size: 1.1em;
             color: #007bff;
@@ -39,6 +39,35 @@
             margin-bottom: 15px;
             padding: 5px 0;
             border-bottom: 1px solid #eee;
+        }
+
+        /* Styles pour le chronomètre */
+        #timer-container {
+            height: 25px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative; 
+            margin-bottom: 20px; 
+        }
+        #timer-bar {
+            height: 100%;
+            width: 100%; 
+            background-color: #f44336; 
+            transition: width linear; 
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #timer-text { 
+            position: relative;
+            z-index: 10;
+            padding-right: 10px;
+            line-height: 25px; 
+            color: white; 
+            font-weight: bold;
+            text-align: right;
+            mix-blend-mode: difference; 
         }
 
         .question-text {
@@ -92,7 +121,7 @@
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.2s;
-            display: none; /* Caché initialement */
+            display: none; 
         }
 
         #next-btn:hover {
@@ -119,9 +148,14 @@
     <h1>🧠 Le Grand Quiz 🇫🇷</h1>
     
     <div id="score-display">Score : 0 / 0</div>
+
+    <div id="timer-container">
+        <div id="timer-bar"></div>
+        <div id="timer-text">Chargement...</div>
+    </div>
     
     <div id="quiz-area">
-        <div id="question-text" class="question-text">Question en cours...</div>
+        <div id="question-text" class="question-text">Chargement des questions...</div>
         <div id="answer-buttons">
             </div>
         <div class="controls">
@@ -136,101 +170,22 @@
 <audio id="audio-correct" src="audio/the-correct-answer-33-183620.mp3" preload="auto"></audio>
 <audio id="audio-incorrect" src="audio/wrong-answer-21-199825.mp3" preload="auto"></audio>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
 <script>
     // ----------------------------------------------------
     // JAVASCRIPT pour la logique du quiz
     // ----------------------------------------------------
 
-    // 1. Les données du quiz (reste inchangé)
-    const questions = [
-        {
-            question: "Quelle est la capitale de l'Australie ?",
-            answers: [
-                { text: "Sydney", correct: false },
-                { text: "Melbourne", correct: false },
-                { text: "Canberra", correct: true },
-                { text: "Perth", correct: false }
-            ]
-        },
-        {
-            question: "Quel est le nombre atomique de l'hydrogène ?",
-            answers: [
-                { text: "1", correct: true },
-                { text: "2", correct: false },
-                { text: "3", correct: false }
-            ]
-        },
-        {
-            question: "Qui a écrit 'Les Misérables' ?",
-            answers: [
-                { text: "Albert Camus", correct: false },
-                { text: "Victor Hugo", correct: true },
-                { text: "Émile Zola", correct: false },
-            ]
-        },
-        {
-            question: "Combien de côtés a un heptagone ?",
-            answers: [
-                { text: "6", correct: false },
-                { text: "7", correct: true },
-                { text: "8", correct: false },
-            ]
-        },
-        {
-            question: "Quel est le plus grand désert du monde ?",
-            answers: [
-                { text: "Le Sahara", correct: false },
-                { text: "L'Antarctique", correct: true },
-                { text: "Le Gobi", correct: false },
-            ]
-        },
-        {
-            question: "En quelle année l'homme a-t-il marché sur la lune pour la première fois ?",
-            answers: [
-                { text: "1965", correct: false },
-                { text: "1969", correct: true },
-                { text: "1972", correct: false },
-            ]
-        },
-        {
-            question: "Quel pays est aussi un continent ?",
-            answers: [
-                { text: "Canada", correct: false },
-                { text: "Brésil", correct: false },
-                { text: "Australie", correct: true },
-            ]
-        },
-        {
-            question: "Quelle est la planète la plus proche du soleil ?",
-            answers: [
-                { text: "Vénus", correct: false },
-                { text: "Mercure", correct: true },
-                { text: "Mars", correct: false },
-            ]
-        },
-        {
-            question: "Quel est l'acronyme pour le langage de mise en page Web ?",
-            answers: [
-                { text: "CSS", correct: false },
-                { text: "HTML", correct: true },
-                { text: "JS", correct: false },
-            ]
-        },
-        {
-            question: "Quelle est la couleur du cheval d'Henri IV ?",
-            answers: [
-                { text: "Noir", correct: false },
-                { text: "Marron", correct: false },
-                { text: "Blanc", correct: true },
-            ]
-        }
-    ];
+    // 1. URL de votre CSV
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQszfEph8NEnStUdfkFSmPf470xutMeMi-HI7vZeO2y4NI2OJcxJjTbbrkabW18mWmqZ2DHnFS2tij8/pub?output=csv';
+    let questions = []; // La liste de questions sera remplie par le CSV
 
     // 2. Variables d'état
     let currentQuestionIndex = 0;
     let score = 0;
 
-    // 3. Références aux éléments HTML (AJOUT DE scoreDisplay ET AUDIO)
+    // 3. Références aux éléments HTML
     const questionElement = document.getElementById('question-text');
     const answerButtons = document.getElementById('answer-buttons');
     const nextButton = document.getElementById('next-btn');
@@ -240,45 +195,83 @@
     const audioCorrect = document.getElementById('audio-correct'); 
     const audioIncorrect = document.getElementById('audio-incorrect'); 
 
-    // 4. Fonctions
-    
+    // Références au Timer
+    const timerBar = document.getElementById('timer-bar');
+    const timerText = document.getElementById('timer-text');
+    let timerInterval; 
+    const TIME_LIMIT = 10; // Limite en secondes
+
+    // 4. Fonctions de Quiz
+
     function updateScoreDisplay() { 
-        scoreDisplay.innerHTML = `Score : ${score} / ${questions.length}`;
+        // S'assurer que 'questions' est chargé avant d'afficher le total
+        scoreDisplay.innerHTML = `Score : ${score} / ${questions.length || 0}`;
     }
     
+    function startTimer() {
+        clearInterval(timerInterval);
+        timerBar.style.transition = 'none'; 
+        timerBar.style.width = '100%';
+        timerText.innerHTML = `${TIME_LIMIT}s`;
+
+        setTimeout(() => {
+            timerBar.style.transition = `width ${TIME_LIMIT}s linear`;
+            timerBar.style.width = '0%';
+        }, 50); 
+    
+        let timeLeft = TIME_LIMIT;
+    
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            
+            if (timeLeft >= 0) {
+                timerText.innerHTML = `${timeLeft}s`;
+            }
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                handleTimeOut();
+            }
+        }, 1000); 
+    }
+
     function startQuiz() {
+        // Cette fonction est maintenant appelée par loadQuestions() une fois le CSV prêt
+        if (questions.length === 0) {
+            questionElement.innerHTML = "Erreur de chargement des questions.";
+            return;
+        }
+
         currentQuestionIndex = 0;
         score = 0;
         nextButton.innerHTML = "Question Suivante ▶️";
-        // Afficher la zone de quiz et cacher le résultat
         quizArea.style.display = 'block';
         resultContainer.style.display = 'none';
         nextButton.classList.remove('finish'); 
-        updateScoreDisplay(); // MISE À JOUR DU SCORE INITIAL
+        updateScoreDisplay(); 
         showQuestion();
     }
 
     function showQuestion() {
-        // 1. Réinitialiser la zone des réponses
-        resetState();
+        resetState(); 
+        startTimer();
 
         let currentQuestion = questions[currentQuestionIndex];
         let questionNo = currentQuestionIndex + 1;
         
-        // Mettre à jour l'affichage de la question et du numéro
         questionElement.innerHTML = `(${questionNo}/${questions.length}) ${currentQuestion.question}`;
         
-        // Mettre à jour l'affichage du score
-        updateScoreDisplay(); // Afficher le score même lors du changement de question
+        updateScoreDisplay(); 
 
         // 2. Créer les boutons pour les réponses
-        currentQuestion.answers.forEach(answer => {
+        currentQuestion.answers.forEach((answer, index) => {
             const button = document.createElement("button");
             button.innerHTML = answer.text;
             button.classList.add("btn-option");
-            // Stocker la propriété 'correct' du JS dans l'élément HTML
+            
+            // Si c'est la bonne réponse, on stocke la propriété
             if (answer.correct) {
-                button.dataset.correct = answer.correct; 
+                button.dataset.correct = "true"; 
             }
             button.addEventListener("click", selectAnswer);
             answerButtons.appendChild(button);
@@ -286,47 +279,72 @@
     }
 
     function resetState() {
-        // Cache le bouton Suivant
         nextButton.style.display = 'none';
-        // Supprime tous les anciens boutons de réponse
         while(answerButtons.firstChild){
             answerButtons.removeChild(answerButtons.firstChild);
         }
+        clearInterval(timerInterval);
+    }
+    
+    function disableAnswerButtons() {
+         Array.from(answerButtons.children).forEach(button => {
+            button.disabled = true;
+        });
     }
 
     function selectAnswer(e) {
+        clearInterval(timerInterval);
+
         const selectedBtn = e.target;
-        // La propriété 'dataset.correct' est 'true' si la réponse est correcte
         const isCorrect = selectedBtn.dataset.correct === "true"; 
 
         if (isCorrect) {
             selectedBtn.classList.add("correct");
             score++;
-            audioCorrect.play(); // JOUER LE SON CORRECT
+            audioCorrect.play(); 
         } else {
             selectedBtn.classList.add("incorrect");
-            audioIncorrect.play(); // JOUER LE SON INCORRECT
+            audioIncorrect.play(); 
         }
         
-        updateScoreDisplay(); // MISE À JOUR DU SCORE APRÈS LE CHOIX
+        updateScoreDisplay(); 
 
         // Marquer la bonne réponse et désactiver tous les boutons
         Array.from(answerButtons.children).forEach(button => {
             if(button.dataset.correct === "true") {
                 button.classList.add("correct");
             }
-            // Désactiver tous les boutons après le premier clic
-            button.disabled = true;
         });
+        
+        disableAnswerButtons();
 
-        // Afficher le bouton Suivant
         nextButton.style.display = 'block';
         nextButton.disabled = false;
         
-        // Mettre à jour le texte du bouton si c'est la dernière question
         if (currentQuestionIndex === questions.length - 1) {
              nextButton.innerHTML = "Voir le Résultat 🏆";
              nextButton.classList.add('finish');
+        }
+    }
+    
+    function handleTimeOut() {
+        disableAnswerButtons(); 
+        
+        Array.from(answerButtons.children).forEach(button => {
+            if(button.dataset.correct === "true") {
+                button.classList.add("correct");
+            }
+        });
+
+        timerText.innerHTML = `TEMPS ÉCOULÉ !`;
+        audioIncorrect.play(); 
+
+        nextButton.style.display = 'block';
+        nextButton.disabled = false;
+
+        if (currentQuestionIndex === questions.length - 1) {
+            nextButton.innerHTML = "Voir le Résultat 🏆";
+            nextButton.classList.add('finish');
         }
     }
 
@@ -340,7 +358,6 @@
     }
 
     function showResult() {
-        // Cacher la zone de quiz et afficher le résultat
         quizArea.style.display = 'none';
         resultContainer.style.display = 'block';
 
@@ -355,21 +372,88 @@
         
         resultContainer.innerHTML = message;
         
-        // Ajouter un bouton pour rejouer
         const playAgainBtn = document.createElement("button");
         playAgainBtn.innerHTML = "Rejouer le Quiz 🔁";
         playAgainBtn.id = "play-again-btn";
         playAgainBtn.classList.add("btn-option");
         playAgainBtn.style.marginTop = "20px";
-        playAgainBtn.addEventListener("click", startQuiz);
+        playAgainBtn.addEventListener("click", () => {
+             // Recharger les questions depuis le CSV pour un nouveau quiz
+             loadQuestions(); 
+        });
         resultContainer.appendChild(playAgainBtn);
     }
     
+    // 5. FONCTIONS DE CHARGEMENT CSV (NOUVEAU)
+    
+    // Convertit les données brutes du CSV dans la structure JSON attendue par le quiz
+    function formatQuestions(data) {
+        const formattedQuestions = [];
+        data.forEach(row => {
+            // S'assurer que la ligne n'est pas vide et a une question
+            if (!row.question) return; 
+
+            const questionText = row.question;
+            const answers = [];
+            const correctIndex = parseInt(row.correct_index, 10);
+            
+            let answerIndex = 0;
+            // Parcourir toutes les colonnes qui ressemblent à des réponses (answer1, answer2...)
+            while (row[`answer${answerIndex + 1}`]) {
+                const answerText = row[`answer${answerIndex + 1}`];
+                if (answerText.trim() !== "") {
+                    answers.push({
+                        text: answerText,
+                        correct: answerIndex === correctIndex 
+                    });
+                }
+                answerIndex++;
+            }
+
+            if (answers.length > 0) {
+                formattedQuestions.push({
+                    question: questionText,
+                    answers: answers
+                });
+            }
+        });
+        return formattedQuestions;
+    }
+
+    function loadQuestions() {
+        questionElement.innerHTML = "Chargement des questions depuis Google Sheets...";
+        timerText.innerHTML = "Attente...";
+
+        // Utiliser PapaParse pour récupérer et analyser le CSV
+        Papa.parse(CSV_URL, {
+            download: true, // Télécharger le fichier depuis l'URL
+            header: true,   // Utiliser la première ligne comme en-têtes (question, answer1, correct_index, etc.)
+            skipEmptyLines: true,
+            complete: function(results) {
+                if (results.data && results.data.length > 0) {
+                    questions = formatQuestions(results.data);
+                    console.log("Questions chargées:", questions);
+                    
+                    if (questions.length > 0) {
+                        startQuiz(); // Lancer le quiz une fois les questions prêtes
+                    } else {
+                        questionElement.innerHTML = "Erreur: Aucune question valide trouvée dans le CSV. Vérifiez les en-têtes.";
+                    }
+                } else {
+                    questionElement.innerHTML = "Erreur: Impossible de charger ou d'analyser le CSV.";
+                }
+            },
+            error: function(error) {
+                questionElement.innerHTML = "Erreur de chargement du CSV: " + error.message;
+            }
+        });
+    }
+
     // Événement pour passer à la question suivante
     nextButton.addEventListener("click", handleNextButton);
 
-    // Lancer le quiz au chargement de la page
-    startQuiz();
+    // Lancer le chargement des questions au démarrage
+    loadQuestions();
 </script>
 
 </body>
