@@ -1,4 +1,4 @@
-### Présentation de la Version 1:
+# Présentation de la Version 1:
 ## Le Quiz Interactif Amélioré
 
 
@@ -40,12 +40,10 @@ Navigation: handleNextButton() gère l'incrémentation de l'index des questions 
 
 Fin de Jeu: showResult() masque la zone de quiz principale et affiche le score final, suivi du bouton de Rejouer qui relance startQuiz().
 
-Prochaines Étapes / Axes d'Amélioration (V2)
+## Prochaines Étapes / Axes d'Amélioration (V2)
 Pour les versions futures, l'objectif principal sera la maintenabilité et l'extensibilité :
 
-Séparation des Fichiers: Nous allons isoler le tableau des questions dans un fichier de données dédié (JSON ou JS) et placer toute la logique JavaScript dans un fichier script.js externe.
-
-Design: Ajouter une barre de progression visuelle pour une meilleure indication de l'avancement.
+Améliorer les fonctionnalitès + visuel
 
 ## Diagramme Mermaid: 
 graph TD
