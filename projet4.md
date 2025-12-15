@@ -48,6 +48,53 @@ Ayant atteint un haut niveau de fonctionnalité et de modularité du contenu, la
 Externalisation du JavaScript : Finaliser la modularisation en déplaçant tout le code JavaScript actuel (qui se trouve toujours dans la balise <script>) dans un fichier externe script.js. Cela réduira le fichier index.html à sa seule fonction structurelle.
 
 
+Diagramme de Mermaid: 
+graph TD
+    A[Démarrage du script] --> B(Appel: loadQuestions);
+    
+    B --> C(Chargement CSV via PapaParse);
+    C --Succès--> D(Appel: startQuiz);
+    C --Échec--> E(Afficher Erreur / Arrêt);
+
+    D --> F{Initialiser Quiz (Score/Index)};
+    F --> G(Appel: showQuestion);
+    
+    G --> H(Appel: resetState - Nettoyer/Arrêter Timer précédent);
+    H --> I(Appel: startTimer); /* 🚀 NOUVEAU: Démarrage du chronomètre */
+    I --> J(Afficher Question & Boutons);
+    
+    J --> K{Interaction de l'utilisateur};
+    K --Choix de réponse--> L(Appel: selectAnswer);
+    K --Temps Écoulé (Timer 0s)--> M(Appel: handleTimeOut); /* 🚨 NOUVEAU: Timeout */
+    
+    L --> L1(Arrêter Timer); /* 🛑 NOUVEAU */
+    L --> L2{Réponse Correcte?};
+    L2 --Oui--> L3(Incrémenter Score / Audio Correct);
+    L2 --Non--> L4(Audio Incorrect);
+    L3 --> N;
+    L4 --> N;
+    
+    M --> M1(Arrêter Timer); /* 🛑 NOUVEAU */
+    M --> M2(Désactiver Boutons);
+    M --> M3(Afficher Bonne Réponse / Audio Incorrect); /* Pas d'incrément de score */
+    M3 --> N;
+    
+    N(Marquer/Désactiver Boutons);
+    N --> O(Afficher bouton 'Suivant');
+    
+    O --> P{Clic sur 'Suivant'};
+    P --> Q(Appel: handleNextButton);
+    
+    Q --> R{Question Suivante?};
+    R --Oui--> S(Incrémenter Index);
+    S --> G; /* Retour à showQuestion (redémarre le Timer) */
+    R --Non--> T(Appel: showResult);
+    
+    T --> U(Afficher Résultat Final / Message Personnalisé);
+    U --> V(Bouton 'Rejouer 🔁');
+
+    V --> B; /* Clic 'Rejouer' relance loadQuestions */
+
 
 
 
