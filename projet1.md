@@ -1,11 +1,11 @@
-Présentation de la Version 1:
-Le Quiz Interactif Amélioré
+### Présentation de la Version 1:
+## Le Quiz Interactif Amélioré
 
 
-Objectif de la Version 1
+## Objectif de la Version 1
 La Version 1 de notre mini-jeu se concentre sur l'enrichissement du contenu et l'amélioration de l'expérience utilisateur (UX). Nous avons fiabilisé le cycle de jeu complet, garantissant un parcours fluide : du lancement, en passant par l'enchaînement des questions, jusqu'au résultat final et au redémarrage de la partie.
 
-Nouveautés et Améliorations Clés
+## Nouveautés et Améliorations Clés
 1. Enrichissement du Contenu
 Nous sommes passés d'un prototype de 3 questions à un quiz complet de 10 questions de Culture Générale. Cette augmentation significative rend le jeu plus long et plus divertissant.
 
@@ -23,7 +23,8 @@ Une fois le résultat affiché, un bouton "Rejouer le Quiz 🔁" est créé pour
 3. Logique du Code
 Les fonctions startQuiz() et showResult() ont été implémentées spécifiquement pour une gestion propre du redémarrage du jeu, ce qui était moins explicite dans la Version 0. Le code est structuré autour de ces fonctions pour maintenir l'état du jeu (score et index de la question courante) de manière fiable.
 
-Structure du Code et Logique
+
+## Structure du Code et Logique
 Le projet continue d'utiliser un unique fichier HTML pour le développement, intégrant le HTML pour la structure, le CSS pour le style et le JavaScript pour la logique.
 
 Logique JavaScript
@@ -46,7 +47,7 @@ Séparation des Fichiers: Nous allons isoler le tableau des questions dans un fi
 
 Design: Ajouter une barre de progression visuelle pour une meilleure indication de l'avancement.
 
-Diagramme Mermaid: 
+## Diagramme Mermaid: 
 graph TD
     A[Démarrage du script] --> B(Appel: startQuiz);
     
