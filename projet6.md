@@ -39,7 +39,7 @@ HTML: Ajout de la référence à la librairie Canvas Confetti.
 
 CSS: Nouveaux styles timer-warning et timer-critical ciblant #timer-bar via son conteneur #timer-container.
 
-CSS
+-> CSS
 
 .timer-warning #timer-bar { /* Orange */ }
 .timer-critical #timer-bar { /* Rouge */ }
