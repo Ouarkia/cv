@@ -9,9 +9,11 @@ En utilisant du HTML, CSS et JavaScript. Le projet est de crée un quizz avec pl
 Démarche de création: 
  site visité: https://www.citizencode.net/blog-actualites/mini-projet-creer-un-quizz-interactif-avec-python<br>
  
-            Teste gemini réalisé par le professeur créant la version 0 du projet.<br>
-            Prompt Gemini: Un mini jeux ou l'on devrais résoudre une série d'énigme ou quizz sur un sujet personnalisé.<br>
-            L'IA nous a alors généré la première version fonctionelle du code qui je pensais me servirais de base pour la suite. 
+Teste gemini réalisé par le professeur créant la version 0 du projet.
+
+            Prompt Gemini: Un mini jeux ou l'on devrais résoudre une série d'énigme ou quizz sur un sujet personnalisé.
+           
+L'IA nous a alors généré la première version fonctionelle du code qui je pensais me servirais de base pour la suite. 
 
 
- ##Diagramme de flux testprojet
+Diagramme de flux testprojet
