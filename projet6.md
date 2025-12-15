@@ -27,7 +27,7 @@ Intégration de la Librairie : La librairie a été ajoutée via un CDN :
 HTML
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-Fonction launchConfetti(): Une nouvelle fonction est introduite pour déclencher des tirs de confettis, avec des couleurs paramétrées pour refléter le thème (Bleu, Blanc, Rouge de la France 🇫🇷).
+Fonction launchConfetti(): Une nouvelle fonction est introduite pour déclencher des tirs de confettis, avec des couleurs paramétrées pour refléter le thème (Bleu, Blanc, Rouge de la France).
 
 Déclenchement: Les confettis sont lancés dans showResult() si le score est jugé suffisant (70% de réussite ou plus), offrant une gratification visuelle pour la fin du quiz.
 
