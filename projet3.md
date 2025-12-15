@@ -1,10 +1,10 @@
-Présentation de la Version 3: Modularité et Contenu Externe
+# Présentation de la Version 3: Modularité et Contenu Externe
 
 
 Objectif de la Version 3
 La Version 3 atteint un jalon crucial en matière de maintenabilité et de modularité. L'objectif principal était de séparer le contenu (les questions) de la logique du code (le JavaScript). Cette architecture permet désormais de modifier le contenu du quiz sans toucher au code de l'application.
 
-Nouveautés et Améliorations Clés
+## Nouveautés et Améliorations Clés
 
 1. Séparation du Contenu (Externalisation des Données)
 C'est le changement le plus important de cette version:
@@ -40,17 +40,17 @@ Contient désormais la logique de chargement de données (CSV_URL, loadQuestions
 
 La logique de base du quiz (startQuiz, selectAnswer, etc.) s'appuie sur le tableau questions qui est maintenant rempli de manière asynchrone par loadQuestions.
 
-Prochaines Étapes / Axes d'Amélioration (V4)
+## Prochaines Étapes / Axes d'Amélioration (V4)
 La Version 4 se concentrera sur l'étape finale de la modularisation pour atteindre une structure professionnelle :
 
 Séparation du Code JS: Retirer tout le JavaScript des balises <script> de index.html et le placer dans un fichier externe lié (<script src="script.js">).
 
 Amélioration du Design (UX): Intégrer une barre de progression visuelle (CSS/HTML) pour compléter l'affichage de progression numérique déjà présent.
 
-Refactorisation: S'assurer que les fonctions sont bien isolées et réutilisables, notamment en utilisant les meilleures pratiques de programmation.
+Musique + CSV
 
 
-Diagramme Mermaid:
+## Diagramme Mermaid:
 graph TD
     A[Démarrage du script] --> B(Afficher: "Chargement des questions...");
     B --> C(Appel: loadQuestions);
