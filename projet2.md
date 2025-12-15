@@ -54,6 +54,53 @@ Accessibilité (A11Y): Améliorer l'accessibilité pour les utilisateurs d'aides
 
 Barre de Progression: Ajouter un indicateur visuel (barre) en haut de l'écran pour visualiser l'avancement dans le quiz.
 
+Diagramme Mermaid:
+graph TD
+    A[Démarrage du script] --> B(Appel: startQuiz);
+    
+    B --> C{Initialiser Score=0, Index=0};
+    C --> C1(Appel: updateScoreDisplay (Score: 0/Total));
+    C1 --> D(Appel: showQuestion);
+    
+    D --> E(Appel: resetState - Nettoyer/Cacher 'Suivant');
+    E --> F(Afficher Question Actuelle & updateScoreDisplay);
+    F --> G{Créer Boutons de Réponse + Ajouter Écouteur 'selectAnswer'};
+    
+    G --> H{Clic sur un Bouton de Réponse};
+    H --> I(Appel: selectAnswer);
+
+    I --> J{La Réponse est-elle Correcte?};
+    J --Oui--> K1(Incrémenter Score);
+    J --Oui--> K2(Jouer audio-correct);
+    J --Non--> K3(Jouer audio-incorrect);
+
+    K1 --> L(Afficher Bonnes/Mauvaises Réponses);
+    K2 --> L;
+    K3 --> L;
+    
+    L --> M(Appel: updateScoreDisplay (Score mis à jour));
+    M --> N(Désactiver tous les boutons);
+    N --> O(Afficher & Activer bouton 'Suivant');
+    O --> P{Est-ce la Dernière Question?};
+    P --Oui--> Q(Changer texte bouton: "Voir le Résultat 🏆");
+    P --Non--> R(Texte bouton: "Question Suivante ▶️");
+    
+    Q --> S{Clic sur 'Suivant'};
+    R --> S;
+    
+    S --> T(Appel: handleNextButton);
+    
+    T --> U{Index < Nombre Total Questions?};
+    U --Oui--> V(Incrémenter Index);
+    V --> D; /* Retour à showQuestion */
+    U --Non--> W(Appel: showResult);
+    
+    W --> X(Masquer Quiz / Afficher Résultat Final);
+    X --> Y(Déterminer Message de Félicitations Personnalisé);
+    Y --> Z(Créer et afficher bouton 'Rejouer 🔁');
+
+    Z --> B; /* Clic 'Rejouer' retourne à startQuiz */
+
 
 
 
