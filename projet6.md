@@ -61,3 +61,59 @@ Créer un style.css et y déplacer tout le contenu de la balise <style>.
 Créer un script.js et y déplacer tout le contenu de la balise <script>.
 
 Mettre à jour index.html pour lier ces deux fichiers externes.
+
+
+Diagramme Mermaid:
+
+graph TD
+    A[Démarrage du script] --> B(Appel: loadQuestions);
+    
+    B --Chargement Réussi--> D1(Appel: startQuiz);
+
+    D1 --> F2(Mélanger questions);
+    F2 --> G(Initialiser Score=0, Index=0);
+    G --> G1(Afficher Historique);
+    G1 --> H(Appel: showQuestion);
+    
+    H --> I(Appel: resetState - Nettoyer);
+    I --> J(Appel: startTimer);
+    
+    subgraph Timer Loop
+        J --> T1(Timer: Compte à Rebours);
+        T1 --Temps > 5s--> T_Normal(Barre Verte);
+        T1 --5s >= Temps > 3s--> T_Warning(Barre Orange - Ajouter Classe .timer-warning);
+        T1 --Temps <= 3s--> T_Critical(Barre Rouge - Ajouter Classe .timer-critical);
+        T_Critical --> T1;
+        T_Warning --> T1;
+        T_Normal --> T1;
+    end
+    
+    T1 --Clic utilisateur--> M(Appel: selectAnswer);
+    T1 --Temps = 0s--> N(Appel: handleTimeOut);
+    
+    M --> O{Vérification réponse};
+    O --Correcte--> O1(Incrémenter Score / Audio Correct / Lancer Confettis 🎉); /* 🎉 NOUVEAU */
+    O --Incorrecte--> O2(Audio Incorrect);
+    
+    N --> P{Afficher Bonne Réponse / Audio Incorrect};
+    
+    O1 --> Q(Afficher bouton 'Suivant');
+    O2 --> Q;
+    P --> Q;
+    
+    Q --> R{Clic sur 'Suivant'};
+    R --> S(Appel: handleNextButton);
+    
+    S --> T{Fin du Quiz?};
+    T --Non--> U(Incrémenter Index);
+    U --> H; /* Retour à showQuestion */
+    T --Oui--> V(Appel: showResult);
+    
+    V --> V1(Sauvegarder Score dans Historique);
+    V1 --> W{Score Élevé?};
+    W --Oui--> W1(Lancer Confettis Finaux 🥳); /* 🥳 NOUVEAU */
+    W --Non--> W2(Afficher Résultat);
+    W1 --> X(Bouton 'Rejouer 🔁');
+    W2 --> X;
+
+    X --> D1;
