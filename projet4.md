@@ -1,9 +1,9 @@
-Présentation de la Version 4: Le Quiz Chronométré et Compétitif
+# Présentation de la Version 4: Le Quiz Chronométré et Compétitif
 
 Objectif de la Version 4
 La Version 4 introduit un élément de compétitivité et d'urgence en intégrant une contrainte de temps par question. Elle ajoute également un indicateur visuel de progression, améliorant grandement l'expérience utilisateur ludique (UX). Sur le plan technique, elle maintient la modularité introduite en V3.
 
-Nouveautés et Améliorations Clés
+## Nouveautés et Améliorations Clés
 1. Chronomètre Visuel et Temporel
 Contrainte de Temps: Chaque question doit désormais être résolue dans une limite de 10 secondes (TIME_LIMIT = 10).
 
@@ -42,13 +42,13 @@ Nouvelles fonctions: startTimer() et handleTimeOut().
 
 Modifications dans showQuestion(), resetState(), et selectAnswer() pour démarrer ou arrêter le chronomètre.
 
-Prochaines Étapes / Axes d'Amélioration (V5)
+## Prochaines Étapes / Axes d'Amélioration (V5)
 Ayant atteint un haut niveau de fonctionnalité et de modularité du contenu, la prochaine étape finale sera l'optimisation et la professionnalisation du code:
 
-Externalisation du JavaScript : Finaliser la modularisation en déplaçant tout le code JavaScript actuel (qui se trouve toujours dans la balise <script>) dans un fichier externe script.js. Cela réduira le fichier index.html à sa seule fonction structurelle.
+Timer + barre de progression
 
 
-Diagramme de Mermaid: 
+## Diagramme de Mermaid: 
 graph TD
     A[Démarrage du script] --> B(Appel: loadQuestions);
     
