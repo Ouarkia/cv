@@ -71,6 +71,50 @@ Externalisation du JavaScript : Déplacer tout le code contenu dans la balise <s
 Externalisation du CSS : Déplacer tout le code contenu dans la balise <style> vers un fichier séparé nommé style.css.
 
 
+Diagramme Mermaid:
+graph TD
+    A[Démarrage du script] --> B(Appel: loadQuestions);
+    
+    B --> C(Chargement CSV via PapaParse);
+    C --Succès--> D(Stocker dans allQuestions);
+    D --Succès--> D1(Appel: startQuiz);
+    C --Échec--> E(Afficher Erreur / Arrêt);
+
+    D1 --> F1(Copier allQuestions dans questions);
+    F1 --> F2(Appel: shuffleArray - Mélanger questions); /* 🔀 NOUVEAU: Mélange */
+    F2 --> G{Initialiser Score=0, Index=0};
+    G --> G1(Appel: saveAndDisplayScoreHistory); /* 💾 NOUVEAU: Charger Historique */
+    G1 --> H(Appel: showQuestion);
+    
+    H --> I(Appel: resetState - Nettoyer/Arrêter Timer);
+    I --> J(Appel: startTimer);
+    J --> K(Afficher Question & Boutons);
+    
+    K --> L{Interaction de l'utilisateur};
+    L --Choix de réponse--> M(Appel: selectAnswer - Arrêter Timer);
+    L --Temps Écoulé (Timer 0s)--> N(Appel: handleTimeOut - Arrêter Timer);
+    
+    M --> O{Mise à jour Score/Marqueurs};
+    N --> P{Afficher Bonne Réponse / Audio Incorrect};
+    
+    O --> Q(Afficher bouton 'Suivant');
+    P --> Q;
+    
+    Q --> R{Clic sur 'Suivant'};
+    R --> S(Appel: handleNextButton);
+    
+    S --> T{Question Suivante?};
+    T --Oui--> U(Incrémenter Index);
+    U --> H; /* Retour à showQuestion */
+    T --Non--> V(Appel: showResult);
+    
+    V --> V1(Appel: saveAndDisplayScoreHistory); /* 🏆 NOUVEAU: Sauvegarder Score */
+    V1 --> W(Afficher Résultat Final);
+    W --> X(Bouton 'Rejouer 🔁');
+
+    X --> D1; /* Clic 'Rejouer' relance startQuiz avec les questions déjà chargées (allQuestions) */
+
+
 
 
 
