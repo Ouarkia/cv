@@ -48,3 +48,58 @@ Séparation du Code JS: Retirer tout le JavaScript des balises <script> de index
 Amélioration du Design (UX): Intégrer une barre de progression visuelle (CSS/HTML) pour compléter l'affichage de progression numérique déjà présent.
 
 Refactorisation: S'assurer que les fonctions sont bien isolées et réutilisables, notamment en utilisant les meilleures pratiques de programmation.
+
+
+Diagramme Mermaid:
+graph TD
+    A[Démarrage du script] --> B(Afficher: "Chargement des questions...");
+    B --> C(Appel: loadQuestions);
+    
+    C --> D{PapaParse: Télécharger/Analyser CSV (URL)};
+    D --Succès (results.data)--> E(Appel: formatQuestions);
+    D --Échec (erreur)--> F(Afficher Erreur de Chargement / Arrêt);
+
+    E --> G{Questions valides chargées?};
+    G --Oui (questions.length > 0)--> H(Appel: startQuiz);
+    G --Non--> F;
+    
+    H --> I{Initialiser Score=0, Index=0};
+    I --> J(Appel: updateScoreDisplay);
+    J --> K(Appel: showQuestion); /* Début du cycle de jeu */
+    
+    K --> L(Appel: resetState - Nettoyer/Cacher 'Suivant');
+    L --> M(Afficher Question Actuelle & updateScoreDisplay);
+    M --> N{Créer Boutons de Réponse + Ajouter Écouteur 'selectAnswer'};
+    
+    N --> O{Clic sur un Bouton de Réponse};
+    O --> P(Appel: selectAnswer);
+
+    P --> Q{La Réponse est Correcte?};
+    Q --Oui--> R1(Incrémenter Score);
+    Q --Oui--> R2(Jouer audio-correct);
+    Q --Non--> R3(Jouer audio-incorrect);
+
+    R1 --> S(Appel: updateScoreDisplay);
+    R2 --> S;
+    R3 --> S;
+    
+    S --> T(Désactiver Boutons (disableAnswerButtons));
+    T --> U(Afficher & Activer bouton 'Suivant');
+    U --> V{Est-ce la Dernière Question?};
+    V --Oui--> W(Changer texte bouton: "Voir le Résultat 🏆");
+    V --Non--> X(Texte bouton: "Question Suivante ▶️");
+    
+    W --> Y{Clic sur 'Suivant'};
+    X --> Y;
+    
+    Y --> Z(Appel: handleNextButton);
+    
+    Z --> ZA{Index < Total Questions?};
+    ZA --Oui--> ZB(Incrémenter Index);
+    ZB --> K; /* Retour à showQuestion */
+    ZA --Non--> ZC(Appel: showResult);
+    
+    ZC --> ZD(Masquer Quiz / Afficher Message Résultat);
+    ZD --> ZE(Créer et afficher bouton 'Rejouer 🔁');
+
+    ZE --> C; /* Clic 'Rejouer' relance loadQuestions pour recharger les données */
