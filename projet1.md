@@ -46,6 +46,46 @@ Séparation des Fichiers: Nous allons isoler le tableau des questions dans un fi
 
 Design: Ajouter une barre de progression visuelle pour une meilleure indication de l'avancement.
 
+Diagramme Mermaid: 
+graph TD
+    A[Démarrage du script] --> B(Appel: startQuiz);
+    
+    B --> C{Initialiser Score=0, Index=0};
+    C --> D(Appel: showQuestion);
+    
+    D --> E(Appel: resetState - Nettoyer boutons/Cacher 'Suivant');
+    E --> F(Afficher Question Actuelle (Index + 1));
+    F --> G{Créer Boutons de Réponse + Ajouter Écouteur 'selectAnswer'};
+    
+    G --> H{Clic sur un Bouton de Réponse};
+    H --> I(Appel: selectAnswer);
+
+    I --> J{La Réponse est-elle Correcte?};
+    J --Oui--> K(Incrémenter Score);
+    J --Non--> L(Afficher Bonnes/Mauvaises Réponses);
+
+    K --> L;
+    L --> M(Désactiver tous les boutons);
+    M --> N(Afficher & Activer bouton 'Suivant');
+    N --> O{Est-ce la Dernière Question?};
+    O --Oui--> P(Changer texte bouton: "Voir le Résultat 🏆");
+    O --Non--> Q(Texte bouton: "Question Suivante ▶️");
+    
+    P --> R{Clic sur 'Suivant'};
+    Q --> R;
+    
+    R --> S(Appel: handleNextButton);
+    
+    S --> T{Index < Nombre Total Questions?};
+    T --Oui--> U(Incrémenter Index);
+    U --> D; /* Retour à showQuestion */
+    T --Non--> V(Appel: showResult);
+    
+    V --> W(Masquer Quiz / Afficher Résultat Final Score/Total);
+    W --> X(Créer et afficher bouton 'Rejouer 🔁');
+
+    X --> B; /* Clic 'Rejouer' retourne à startQuiz */
+
 
 
 
