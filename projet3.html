@@ -1,1 +1,50 @@
-test
+Présentation de la Version 3: Modularité et Contenu Externe
+
+
+Objectif de la Version 3
+La Version 3 atteint un jalon crucial en matière de maintenabilité et de modularité. L'objectif principal était de séparer le contenu (les questions) de la logique du code (le JavaScript). Cette architecture permet désormais de modifier le contenu du quiz sans toucher au code de l'application.
+
+Nouveautés et Améliorations Clés
+
+1. Séparation du Contenu (Externalisation des Données)
+C'est le changement le plus important de cette version:
+
+Source Externe: Le tableau des questions a été entièrement retiré du code JavaScript. Les questions sont désormais chargées dynamiquement à partir d'un fichier externe, en l'occurrence un Google Sheet public au format CSV (Comma Separated Values).
+
+Librairie d'Analyse: Utilisation de la bibliothèque PapaParse pour analyser le fichier CSV, le transformant en une structure de données utilisable par JavaScript.
+
+Enjeux: Cette approche démontre une capacité à gérer les données de manière professionnelle. Elle permet à l'utilisateur ou à un éditeur de contenu d'ajouter, modifier ou supprimer des questions simplement en éditant la feuille de calcul en ligne, sans avoir besoin de modifier le code HTML ou JavaScript.
+
+2. Gestion du Chargement Asynchrone
+Étant donné que les données sont chargées depuis une source externe via Internet, le processus est asynchrone (non immédiat) :
+
+Fonction loadQuestions(): Une nouvelle fonction a été créée pour gérer l'appel à la source CSV, l'analyse des données, et la transformation du format de la feuille de calcul dans le format JSON attendu par le quiz.
+
+Initialisation Dynamique: Le quiz ne démarre plus immédiatement au chargement de la page (startQuiz() est appelé uniquement après que les données ont été chargées avec succès). Pendant ce temps, l'utilisateur voit un message de "Chargement des questions...".
+
+Gestion d'Erreurs: Le code inclut désormais une gestion des erreurs pour les cas où le chargement du CSV échouerait ou si aucune question valide n'était trouvée.
+
+3. Amélioration Technique et Préparation V4
+URL des Audios: Les chemins des fichiers audio (audio-correct, audio-incorrect) ont été mis à jour pour simuler une structure de dossiers (audio/), préparant la future modularisation des assets.
+
+Bouton Rejouer: Le bouton "Rejouer" appelle désormais loadQuestions() pour s'assurer qu'une nouvelle version (potentiellement mise à jour) des questions est chargée à chaque redémarrage.
+
+Structure du Projet (V3)
+Le projet reste visuellement le même que la V2, mais il est conceptuellement bien plus avancé.
+
+HTML (index.html): Intègre le lien vers la librairie PapaParse (<script src=".../papaparse.min.js">). Le tableau des questions a disparu.
+
+JavaScript (dans <script>):
+
+Contient désormais la logique de chargement de données (CSV_URL, loadQuestions, formatQuestions).
+
+La logique de base du quiz (startQuiz, selectAnswer, etc.) s'appuie sur le tableau questions qui est maintenant rempli de manière asynchrone par loadQuestions.
+
+Prochaines Étapes / Axes d'Amélioration (V4)
+La Version 4 se concentrera sur l'étape finale de la modularisation pour atteindre une structure professionnelle :
+
+Séparation du Code JS: Retirer tout le JavaScript des balises <script> de index.html et le placer dans un fichier externe lié (<script src="script.js">).
+
+Amélioration du Design (UX): Intégrer une barre de progression visuelle (CSS/HTML) pour compléter l'affichage de progression numérique déjà présent.
+
+Refactorisation: S'assurer que les fonctions sont bien isolées et réutilisables, notamment en utilisant les meilleures pratiques de programmation.
