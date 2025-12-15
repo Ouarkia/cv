@@ -1,11 +1,10 @@
-Présentation de la Version 2 : Le Quiz Multimédia et Détaillé
-
+# Présentation de la Version 2 : Le Quiz Multimédia et Détaillé
 
 Objectif de la Version 2
 La Version 2 poursuit l'amélioration de l'expérience utilisateur en ajoutant des éléments sensoriels et en affinant le suivi de l'utilisateur. Le focus est mis sur le retour d'information immédiat et la gamification légère du quiz.
 
 
-Nouveautés et Améliorations Clés
+## Nouveautés et Améliorations Clés
 1. Feedback Sonore et Multimédia
 C'est l'ajout le plus notable de cette version. Des balises <audio> ont été intégrées dans le HTML, permettant d'ajouter des effets sonores lors de la validation d'une réponse.
 
@@ -27,7 +26,7 @@ Gamification: Selon le score obtenu (parfait, excellent, ou juste bon), des mess
 Le code JavaScript a été légèrement réorganisé pour intégrer ces fonctionnalités de manière propre, notamment en ajoutant des références aux nouveaux éléments audio et d'affichage du score. L'architecture de base (fonctions startQuiz, showQuestion, selectAnswer, showResult) reste stable, prouvant la robustesse des fondations établies en V1.
 
 
-Structure du Code et Composants
+## Structure du Code et Composants
 Le projet continue d'utiliser un unique fichier HTML intégrant JavaScript et CSS.
 
 HTML (Structure): Ajout de la balise div pour le score (id="score-display") et des balises <audio> liées aux sons.
@@ -45,14 +44,10 @@ Intégration des appels audioCorrect.play() ou audioIncorrect.play() dans select
 Logique conditionnelle enrichie dans showResult() pour les messages de fin de partie.
 
 
-Prochaines Étapes / Axes d'Amélioration (V3)
-Maintenant que le quiz est riche en fonctionnalités et en feedback, l'objectif principal de la prochaine version sera la maintenabilité du code :
+## Prochaines Étapes / Axes d'Amélioration (V3)
+Maintenant que le quiz est riche en fonctionnalités et en feedback, l'objectif principal de la prochaine version sera de le rendre + fonctionnel:
 
-Séparation du Code (Mandat prioritaire): Externaliser le code JavaScript dans un fichier script.js et potentiellement les données des questions dans un fichier data.js ou questions.json.
-
-Accessibilité (A11Y): Améliorer l'accessibilité pour les utilisateurs d'aides techniques (ex. lecteurs d'écran).
-
-Barre de Progression: Ajouter un indicateur visuel (barre) en haut de l'écran pour visualiser l'avancement dans le quiz.
+- Ajouter le score + changer le titre
 
 Diagramme Mermaid:
 graph TD
