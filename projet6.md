@@ -1,4 +1,4 @@
-Présentation de la Version 6: Dynamisme Visuel et Feedback Amélioré
+###Présentation de la Version 6: Dynamisme Visuel et Feedback Amélioré
 
 Objectif de la Version 6
 La Version 6 se concentre sur l'amélioration du feedback visuel et de l'immersion du joueur en ajoutant des éléments dynamiques et des indicateurs visuels clairs.
