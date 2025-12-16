@@ -29,6 +29,8 @@ Rendre le quizz + attractif visuellement, et + fonctionnel
 
 ## Diagramme de flux testprojet: 
 graph TD
+
+'''mermaid
     A[Démarrage: Chargement de la page] --> B(Appel: startQuiz);
     
     B --> C{Initialisation des variables};
@@ -59,3 +61,4 @@ graph TD
     P --> R(Afficher bouton Rejouer);
 
     R --> B; /* Retour à startQuiz pour relancer */
+    '''
