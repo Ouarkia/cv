@@ -1,11 +1,15 @@
 # Présentation de la Version 1:
-## Le Quiz Interactif Amélioré
+### Le Quiz Interactif Amélioré
 
 
 ## Objectif de la Version 1
 La Version 1 de notre mini-jeu se concentre sur l'enrichissement du contenu et l'amélioration de l'expérience utilisateur (UX). Nous avons fiabilisé le cycle de jeu complet, garantissant un parcours fluide : du lancement, en passant par l'enchaînement des questions, jusqu'au résultat final et au redémarrage de la partie.
 
 ## Nouveautés et Améliorations Clés
+
+Utilisation IA Gemini:
+Prompt utilisé -> "Crée un quizz simple d'une dizaines de question sur le thème culture G"
+
 1. Enrichissement du Contenu
 Nous sommes passés d'un prototype de 3 questions à un quiz complet de 10 questions de Culture Générale. Cette augmentation significative rend le jeu plus long et plus divertissant.
 
