@@ -4,6 +4,7 @@ Objectif de la Version 4
 La Version 4 introduit un élément de compétitivité et d'urgence en intégrant une contrainte de temps par question. Elle ajoute également un indicateur visuel de progression, améliorant grandement l'expérience utilisateur ludique (UX). Sur le plan technique, elle maintient la modularité introduite en V3.
 
 ## Nouveautés et Améliorations Clés
+Utilisation de IA Gemini: Prompt utilisé-> "donne moi le code pour ajouter à mon quizz un timer de 10sec et une barre de progression".
 1. Chronomètre Visuel et Temporel
 Contrainte de Temps: Chaque question doit désormais être résolue dans une limite de 10 secondes (TIME_LIMIT = 10).
 
