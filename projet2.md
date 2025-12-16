@@ -1,6 +1,8 @@
 # Présentation de la Version 2 : Le Quiz Multimédia et Détaillé
 
 Objectif de la Version 2
+
+
 La Version 2 poursuit l'amélioration de l'expérience utilisateur en ajoutant des éléments sensoriels et en affinant le suivi de l'utilisateur. Le focus est mis sur le retour d'information immédiat et la gamification légère du quiz.
 
 
