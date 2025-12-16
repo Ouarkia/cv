@@ -30,10 +30,8 @@ Rendre le quizz + attractif visuellement, et + fonctionnel
 ## Diagramme de flux testprojet: 
 
 '''mermaid
-
 flowchart TB
-
-    A[Démarrage: Chargement de la page] --> B(Appel: startQuiz);
+ A[Démarrage: Chargement de la page] --> B(Appel: startQuiz);
     
     B --> C{Initialisation des variables};
     C --> D(Appel: showQuestion);
