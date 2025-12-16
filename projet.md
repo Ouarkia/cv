@@ -32,6 +32,7 @@ graph TD
 
 '''mermaid
 Flowchart TB
+
 A[Démarrage: Chargement de la page] --> B(Appel: startQuiz);
     
 B --> C{Initialisation des variables};
