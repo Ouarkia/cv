@@ -63,4 +63,5 @@ P --> Q(Afficher le Score Final);
 P --> R(Afficher bouton Rejouer);
 
 R --> B; /* Retour à startQuiz pour relancer */
+
 '''
