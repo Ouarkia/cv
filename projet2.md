@@ -12,24 +12,18 @@ Utilisation IA Gemini:
 -> Prompt utilisé: "Ajoute à mon code la fonctionnalité score"
 L'IA me génère le bout de code et ensuite je vais le replacer à la bonne place. 
 
-1. Feedback Sonore et Multimédia
-C'est l'ajout le plus notable de cette version. Des balises <audio> ont été intégrées dans le HTML, permettant d'ajouter des effets sonores lors de la validation d'une réponse.
 
-Réponse Correcte: Un son de succès se déclenche, renforçant la satisfaction du joueur.
-
-Réponse Incorrecte: Un son d'erreur se fait entendre, offrant un retour d'information immédiat et clair.
-
-2. Suivi de Score Amélioré
+1. Suivi de Score Amélioré
 Un nouvel élément HTML (<div id="score-display">) a été introduit spécifiquement pour afficher le score en temps réel.
 
 Affichage Dynamique: Une nouvelle fonction JavaScript, updateScoreDisplay(), est appelée après chaque réponse et au début de chaque question, assurant que le score est constamment visible et à jour, renforçant l'aspect compétitif.
 
-3. Messages de Résultat Personnalisés
+2. Messages de Résultat Personnalisés
 La fonction showResult() a été enrichie pour fournir un feedback plus engageant à la fin du quiz.
 
 Gamification: Selon le score obtenu (parfait, excellent, ou juste bon), des messages et des émojis différents s'affichent, motivant le joueur à rejouer pour atteindre un meilleur palmarès.
 
-4. Améliorations de la Logique
+3. Améliorations de la Logique
 Le code JavaScript a été légèrement réorganisé pour intégrer ces fonctionnalités de manière propre, notamment en ajoutant des références aux nouveaux éléments audio et d'affichage du score. L'architecture de base (fonctions startQuiz, showQuestion, selectAnswer, showResult) reste stable, prouvant la robustesse des fondations établies en V1.
 
 
