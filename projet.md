@@ -28,36 +28,37 @@ La version 0 se compose d'un seul fichier index.html intégrant les trois langag
 Rendre le quizz + attractif visuellement, et + fonctionnel
 
 ## Diagramme de flux testprojet: 
-```mermaid
-graph TD
-    A[Démarrage: Chargement de la page] --> B Appel: startQuiz;
+
+'''mermaid
+flowchart TB
+    A[Démarrage: Chargement de la page] --> B(Appel: startQuiz);
     
     B --> C{Initialisation des variables};
-    C --> D Appel: showQuestion;
+    C --> D(Appel: showQuestion);
     
     D --> E(Réinitialisation: resetState);
     E --> F[Afficher Question et Réponses];
     
     F --> G{Clic sur un bouton de Réponse};
-    G -- "answered=true" --> G; /* Boucle tant que non répondu */
+    G -- "answered=true" --> G; Boucle tant que non répondu 
     G -- "answered=false" --> H(Appel: selectAnswer);
 
     H --> I{La réponse est-elle Correcte ?};
-    I -- "Oui" --> J Incrémenter Score ;
+    I -- "Oui" --> J(Incrémenter Score);
     J --> K[Marquer Réponse et Afficher Correct/Incorrect];
     I -- "Non" --> K;
 
-    K --> L Désactiver Clics & Afficher bouton Suivant ;
+    K --> L(Désactiver Clics & Afficher bouton Suivant);
     
     L --> M{Clic sur le bouton Suivant};
     
     M --> N{Reste-t-il des Questions?};
-    N -- "Oui" --> O Incrémenter Index;
-    O --> D; /* Retour à showQuestion */
-    N -- "Non" --> P Appel: showResult;
+    N -- "Oui" --> O(Incrémenter Index);
+    O --> D; /Retour à showQuestion 
+    N -- "Non" --> P(Appel: showResult);
     
     P --> Q[Afficher le Score Final];
     P --> R[Afficher bouton Rejouer];
 
-    R --> B; /* Retour à startQuiz pour relancer */
-'''
+    R --> B;  Retour à startQuiz pour relancer 
+    '''
