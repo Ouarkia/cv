@@ -4,6 +4,9 @@
 La Version 6 se concentre sur l'amélioration du feedback visuel et de l'immersion du joueur en ajoutant des éléments dynamiques et des indicateurs visuels clairs.
 
 ## Nouveautés et Améliorations Clés
+
+Utilisation de IA Gemini: Prompt utilisé-> "donne moi le code pour faire apparaitre des confettis à la fin de mon quizz ainsi que celui pour que la barre de chargement change en fonction du temps qu'il reste".
+
 1. Feedback Temporel Dynamique (Chronos)
 L'indicateur de temps est désormais plus visible et réactif, signalant au joueur le stress temporel :
 
