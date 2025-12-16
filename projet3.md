@@ -5,6 +5,8 @@ Objectif de la Version 3
 La Version 3 atteint un jalon crucial en matière de maintenabilité et de modularité. L'objectif principal était de séparer le contenu (les questions) de la logique du code (le JavaScript). Cette architecture permet désormais de modifier le contenu du quiz sans toucher au code de l'application.
 
 ## Nouveautés et Améliorations Clés
+Utilisation de IA Gemini: Prompt utilisé-> "comment intégrer des balises audio à mon compte"
+Puis création et intégration du fichier CSV à mon quizz en inspectant le code du cours 1. 
 
 1. Séparation du Contenu (Externalisation des Données)
 C'est le changement le plus important de cette version:
@@ -39,6 +41,13 @@ JavaScript (dans <script>):
 Contient désormais la logique de chargement de données (CSV_URL, loadQuestions, formatQuestions).
 
 La logique de base du quiz (startQuiz, selectAnswer, etc.) s'appuie sur le tableau questions qui est maintenant rempli de manière asynchrone par loadQuestions.
+
+5. Feedback Sonore et Multimédia
+C'est l'ajout le plus notable de cette version. Des balises <audio> ont été intégrées dans le HTML, permettant d'ajouter des effets sonores lors de la validation d'une réponse.
+
+Réponse Correcte: Un son de succès se déclenche, renforçant la satisfaction du joueur.
+
+Réponse Incorrecte: Un son d'erreur se fait entendre, offrant un retour d'information immédiat et clair.
 
 ## Prochaines Étapes / Axes d'Amélioration (V4)
 La Version 4 se concentrera sur l'étape finale de la modularisation pour atteindre une structure professionnelle :
