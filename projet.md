@@ -30,10 +30,10 @@ Rendre le quizz + attractif visuellement, et + fonctionnel
 ## Diagramme de flux testprojet: 
 ```mermaid
 graph TD
-    A[Démarrage: Chargement de la page] --> B(Appel: startQuiz);
+    A[Démarrage: Chargement de la page] --> B Appel: startQuiz;
     
     B --> C{Initialisation des variables};
-    C --> D(Appel: showQuestion);
+    C --> D Appel: showQuestion;
     
     D --> E(Réinitialisation: resetState);
     E --> F[Afficher Question et Réponses];
@@ -43,18 +43,18 @@ graph TD
     G -- "answered=false" --> H(Appel: selectAnswer);
 
     H --> I{La réponse est-elle Correcte ?};
-    I -- "Oui" --> J(Incrémenter Score);
+    I -- "Oui" --> J Incrémenter Score ;
     J --> K[Marquer Réponse et Afficher Correct/Incorrect];
     I -- "Non" --> K;
 
-    K --> L(Désactiver Clics & Afficher bouton Suivant);
+    K --> L Désactiver Clics & Afficher bouton Suivant ;
     
     L --> M{Clic sur le bouton Suivant};
     
     M --> N{Reste-t-il des Questions?};
-    N -- "Oui" --> O(Incrémenter Index);
+    N -- "Oui" --> O Incrémenter Index;
     O --> D; /* Retour à showQuestion */
-    N -- "Non" --> P(Appel: showResult);
+    N -- "Non" --> P Appel: showResult;
     
     P --> Q[Afficher le Score Final];
     P --> R[Afficher bouton Rejouer];
