@@ -29,7 +29,7 @@ Rendre le quizz + attractif visuellement, et + fonctionnel
 
 ## Diagramme de flux testprojet: 
 
-'''mermaid
+```mermaid
 flowchart TB
  A[Démarrage: Chargement de la page] --> B(Appel: startQuiz);
     
@@ -61,4 +61,4 @@ flowchart TB
     P --> R[Afficher bouton Rejouer];
 
     R --> B;  Retour à startQuiz pour relancer 
-    '''
+    ```
