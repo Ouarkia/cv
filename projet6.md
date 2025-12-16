@@ -1,9 +1,9 @@
-Présentation de la Version 6: Dynamisme Visuel et Feedback Amélioré
+# Présentation de la Version 6: Dynamisme Visuel et Feedback Amélioré
 
-Objectif de la Version 6
+## Objectif de la Version 6
 La Version 6 se concentre sur l'amélioration du feedback visuel et de l'immersion du joueur en ajoutant des éléments dynamiques et des indicateurs visuels clairs.
 
-Nouveautés et Améliorations Clés
+## Nouveautés et Améliorations Clés
 1. Feedback Temporel Dynamique (Chronos)
 L'indicateur de temps est désormais plus visible et réactif, signalant au joueur le stress temporel :
 
@@ -53,7 +53,7 @@ Ajout de la fonction utilitaire launchConfetti().
 
 Mise à jour de showResult() pour calculer le pourcentage et lancer les confettis en cas de succès.
 
-Prochaines Étapes / Axes d'Amélioration (V7)
+## Prochaines Étapes / Axes d'Amélioration (V7)
 L'application est maintenant très riche en fonctionnalités. Pour finaliser la structure du projet selon les bonnes pratiques modernes, il reste la tâche de séparation des fichiers :
 
 Créer un style.css et y déplacer tout le contenu de la balise <style>.
@@ -62,8 +62,10 @@ Créer un script.js et y déplacer tout le contenu de la balise <script>.
 
 Mettre à jour index.html pour lier ces deux fichiers externes.
 
+confettis à la fin + changement de couleur lorsque le temps restant est faible
 
-Diagramme Mermaid:
+
+## Diagramme Mermaid:
 
 graph TD
     A[Démarrage du script] --> B(Appel: loadQuestions);
