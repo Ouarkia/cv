@@ -5,6 +5,11 @@ La Version 2 poursuit l'amélioration de l'expérience utilisateur en ajoutant d
 
 
 ## Nouveautés et Améliorations Clés
+
+Utilisation IA Gemini:
+-> Prompt utilisé: "Ajoute à mon code la fonctionnalité score"
+L'IA me génère le bout de code et ensuite je vais le replacer à la bonne place. 
+
 1. Feedback Sonore et Multimédia
 C'est l'ajout le plus notable de cette version. Des balises <audio> ont été intégrées dans le HTML, permettant d'ajouter des effets sonores lors de la validation d'une réponse.
 
