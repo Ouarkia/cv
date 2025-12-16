@@ -31,7 +31,6 @@ Rendre le quizz + attractif visuellement, et + fonctionnel
 graph TD
 
 '''mermaid
-
     A[Démarrage: Chargement de la page] --> B(Appel: startQuiz);
     
     B --> C{Initialisation des variables};
