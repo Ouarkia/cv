@@ -1,7 +1,7 @@
-Présentation de la Version 5: Expérience Utilisateur et Gestion de l'État
+# Présentation de la Version 5: Expérience Utilisateur et Gestion de l'État
 
 
-Objectif de la Version 5
+## Objectif de la Version 5
 
 La Version 5 vise à améliorer l'expérience utilisateur et la jouabilité en introduisant deux fonctionnalités clés :
 
@@ -11,7 +11,7 @@ La persistance des données (historique des scores) en utilisant le stockage loc
 
 De plus, cette version met à jour la structure interne du code pour faciliter les développements futurs.
 
-Nouveautés et Améliorations Clés
+## Nouveautés et Améliorations Clés
 1. Jouabilité Améliorée: Mélange des Questions
 Variables de Questions Séparées: Deux tableaux de questions sont désormais utilisés :
 
@@ -63,15 +63,14 @@ Mise à jour de startQuiz() pour mélanger les questions au début de la partie.
 
 Mise à jour de showResult() pour enregistrer le score final.
 
-Prochaines Étapes / Axes d'Amélioration (V6)
-La fonctionnalité du quiz est maintenant très complète. La dernière étape logique pour améliorer la structure du projet est l'externalisation du code, comme prévu initialement :
+## Prochaines Étapes / Axes d'Amélioration (V6)
+La fonctionnalité du quiz est maintenant très complète. 
 
-Externalisation du JavaScript : Déplacer tout le code contenu dans la balise <script> de index.html vers un fichier séparé nommé script.js.
-
-Externalisation du CSS : Déplacer tout le code contenu dans la balise <style> vers un fichier séparé nommé style.css.
+historique de score + affichage questions aléatoire 
 
 
-Diagramme Mermaid:
+
+## Diagramme Mermaid:
 graph TD
     A[Démarrage du script] --> B(Appel: loadQuestions);
     
