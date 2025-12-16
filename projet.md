@@ -24,6 +24,8 @@ Résultat: L'IA a généré la première structure de code HTML/CSS/JavaScript, 
 
 La version 0 se compose d'un seul fichier index.html intégrant les trois langages :ComposantRôleDescriptionHTML (<body>)StructureDéfinit le conteneur du quizz (quiz-container), l'affichage de la question (question-text), les boutons de réponse (answer-buttons) et le bouton de navigation (next-button).CSS (<style>)Style/DesignAssure une mise en page centrée, des couleurs claires et un retour visuel clair lors de la sélection d'une réponse (couleurs verte/rouge).JavaScript (<script>)Logique/InteractionGère le déroulement du jeu, le suivi du score, l'affichage des questions, la vérification des réponses et l'affichage du résultat final.
 
+## Prochaines étapes/ Amélioration:
+Rendre le quizz + attractif visuellement, et + fonctionnel
 
 ## Diagramme de flux testprojet: 
 graph TD
