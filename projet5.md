@@ -12,6 +12,8 @@ La persistance des données (historique des scores) en utilisant le stockage loc
 De plus, cette version met à jour la structure interne du code pour faciliter les développements futurs.
 
 ## Nouveautés et Améliorations Clés
+Utilisation de IA Gemini: Prompt utilisé-> "génère moi le code pour ajouter l'option historique des scores à mon quizz ainsi que celui pour rendre les questions aléatoire lors du quizz".
+
 1. Jouabilité Améliorée: Mélange des Questions
 Variables de Questions Séparées: Deux tableaux de questions sont désormais utilisés :
 
