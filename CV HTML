@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CV Ouarkia BLIDI</title>
+</head>
+<body>
+
+    <header>
+        <h1>Ouarkia BLIDI</h1>
+        [cite_start]<p><strong>Stage Marketing et Numérique de 2 à 6 mois</strong> [cite: 1, 2]</p>
+    </header>
+
+    <section>
+        <h2>COORDONNÉES</h2>
+        <ul>
+            [cite_start]<li>Téléphone: 06 99 38 12 91 [cite: 35]</li>
+            [cite_start]<li>E-mail: ouarkiablidi@gmail.com [cite: 36]</li>
+            [cite_start]<li>Adresse: Vitry-Sur-Seine [cite: 36]</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>PROFIL</h2>
+        <p>
+            [cite_start]Consciente de l'évolution constante du marketing vers le numérique, j'ai développée une forte appétence pour les stratégies digitales et l'analyse des données en ligne. [cite: 32]
+        </p>
+        <p>
+            [cite_start]Mon objectif est de comprendre comment les outils numériques peuvent optimiser l'expérience client et renforcer l'impact des campagnes marketing. [cite: 33]
+        </p>
+    </section>
+
+    <section>
+        <h2>FORMATIONS</h2>
+        <ul>
+            <li>
+                [cite_start]<strong>Master Humanité Numérique - 2025/2027</strong> - Paris 8 [cite: 21, 22]
+                [cite_start]<br>Spécialité Numérique, Enjeux et technologiques [cite: 23]
+                <ul>
+                    [cite_start]<li>Interdisciplinarité: Capacité à faire le pont entre les domaines techniques (informatique) et les sciences humaines et sociales (histoire, littérature, linguistique). [cite: 24]</li>
+                    [cite_start]<li>Développement et Scripting: Familiarité avec des langages de programmation (ex: markdown/HTML). [cite: 25]</li>
+                </ul>
+            </li>
+            <li>
+                [cite_start]<strong>BUT Gestion Administrative et Commerciale des Organisations - 2021/2024</strong> - IUT Paris 8 [cite: 26, 27]
+                [cite_start]<br>Spécialité Management Commercial et Marketing Omnicanal [cite: 28]
+                <ul>
+                    [cite_start]<li>Apprentissage de l'analyse de l'environnement de l'organisation, du diagnostic des enjeux économiques, juridiques, environnementaux et financiers. [cite: 29]</li>
+                    [cite_start]<li>Étude de l'influence de l'environnement sur le marché et identification de ses acteurs. [cite: 30]</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>EXPÉRIENCES PROFESSIONNELLES</h2>
+        <ul>
+            <li>
+                <strong>Équipière Polyvalente</strong> - JUIN 2025 À AUJOURD'HUI
+                [cite_start]<br>BILL'S BURGER [cite: 11, 12]
+            </li>
+            <li>
+                <strong>Stage - Marketing et Communication</strong> - Mars 2024 à Juin 2024
+                [cite_start]<br>Palpashop [cite: 13, 14]
+                <ul>
+                    [cite_start]<li>Construction d'une campagne marketing [cite: 15]</li>
+                    [cite_start]<li>Construction d'un parcours "onboarding" des clients avec différents point de passage [cite: 16]</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Stage - Marketing et Commerce</strong> - Avril 2023 à Juin 2023
+                [cite_start]<br>Tenmo [cite: 17, 18]
+                <ul>
+                    [cite_start]<li>Développement de SEO, rédaction des articles Web, mockup [cite: 19]</li>
+                    [cite_start]<li>Participer aux salons pour les ventes en représentant la marque [cite: 19]</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>COMPÉTENCES PRINCIPALES</h2>
+        <ul>
+            [cite_start]<li>Gestion de Projet [cite: 4]</li>
+            [cite_start]<li>Analyse Critique des Enjeux du Numérique [cite: 5]</li>
+            [cite_start]<li>Créer des documents World/Powerpoint/Canva [cite: 6]</li>
+            [cite_start]<li>Participer à l'amélioration de la stratégie des réseaux sociaux, créer des contenus [cite: 7, 8]</li>
+            [cite_start]<li>Anglais B1 [cite: 9]</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>SAVOIRS ÊTRE CERTIFIÉS</h2>
+        <ul>
+            [cite_start]<li>Travailler en équipe [cite: 38]</li>
+            [cite_start]<li>Faire preuve de curiosité [cite: 38]</li>
+            [cite_start]<li>Faire preuve de leadership [cite: 38]</li>
+            [cite_start]<li>Prendre des initiatives et être force de proposition [cite: 38]</li>
+        </ul>
+    </section>
+
+</body>
+</html>
